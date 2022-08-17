@@ -9,13 +9,11 @@ const blocItemContent = document.querySelector('.item__content__settings');
 let infoError = document.createElement('p');
 
 function showErrorInfos(infoError){
-    infoError.style.color = 'black'
-    infoError.style.fontSize = '20px'
-    infoError.style.fontWeight = '600'
+    infoError.setAttribute("style", "color: black; font-weight: 600; font-size : 20px; text-align : center");
     blocItemContent.append(infoError)
     setTimeout(() => {
         infoError.remove()
-    }, 1500);
+    }, 2000);
 }
 
 const productId = getProductId();
