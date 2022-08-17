@@ -6,15 +6,17 @@ const productName = document.querySelector('.productName');
 const productDescription = document.querySelector('.productDescription');
 
 function showInfos(){
-    mainTitle.innerHTML = 'Vérifiez que le serveur soit allumé'
+    mainTitle.innerHTML = 'Vérifiez que le serveur est allumé'
     mainSubtitle.innerHTML = ''
 };
 showInfos();
 
-const getProducts = async function () {
+const getProducts = async () => {
     let response = await fetch('http://localhost:3000/api/products')
     if (response.ok) {
+        console.log(response);
         let data = await response.json()
+        console.log(data);
         showInfos()
         mainTitle.innerHTML = ''
         mainSubtitle.innerHTML = ''
