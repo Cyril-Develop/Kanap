@@ -56,6 +56,16 @@
 	padding-top: 24px;
 	padding-bottom: 18px;
 }
+/*Add class JS*/
+.showError{
+	color: white;
+	font-weight: 600;
+	font-size: 20px;
+	text-align: center;
+	padding: 10px 0;
+	background-color: crimson;
+}
+/**************/
 .item__content__settings__color {
 	margin-bottom: 10px;
 }

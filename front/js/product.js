@@ -2,44 +2,37 @@ const itemImg = document.querySelector('.item__img');
 const itemTitle = document.querySelector('#title');
 const itemPrice = document.querySelector('#price');
 const itemDescription = document.querySelector('#description');
-let itemcolors = document.querySelector('#colors');
+const itemcolors = document.querySelector('#colors');
 const btnAddToCart = document.getElementById('addToCart');
-
 const blocItemContent = document.querySelector('.item__content__settings');
-let infoError = document.createElement('p');
+const infoError = document.createElement('p');
 
-function showErrorInfos(infoError){
-    infoError.setAttribute("style", "color: black; font-weight: 600; font-size : 20px; text-align : center");
-    blocItemContent.append(infoError)
+function showError(infoError){
+    blocItemContent.append(infoError);
+    infoError.classList.add('showError');
     setTimeout(() => {
-        infoError.remove()
-    }, 2000);
-}
-
-const productId = getProductId();
-function getProductId(){
-    return new URL(location.href).searchParams.get('id')
+        infoError.remove('showError')
+    }, 4000);
 };
 
 const getProductData = async function(){
-    let response = await fetch(`http://localhost:3000/api/products/${productId}`)
-    let data = await response.json();
+    const productId = new URL(location.href).searchParams.get('id');
+    const response = await fetch(`http://localhost:3000/api/products/${productId}`);
+    const data = await response.json();
     displayProduct(data);
 };
 getProductData();
 
 function displayProduct(data){
-    console.log(data);
     itemImg.appendChild(document.createElement('img')).src = data.imageUrl;
     itemTitle.innerHTML = data.name;
     itemPrice.innerHTML = data.price;
     itemDescription.innerHTML = data.description;
-    for(let i = 0; i < data.colors.length; i++){
-        let newOption = document.createElement('option')
-        newOption.innerHTML = `<option value="${data.colors[i]}">${data.colors[i]}</option>`
+    for(let color of data.colors){
+        let newOption = document.createElement('option');
+        newOption.innerHTML = `<option value="${color}">${color}</option>`
         itemcolors.append(newOption);
     };
-
     getProductChooses(data);
 };
 
@@ -49,16 +42,17 @@ function getProductChooses(data){
 
             const itemQuantity = document.getElementById('quantity').value;
 
-            const productChooses = []
+            const productChooses = [];
 
-            if(itemcolors.value === '' || itemQuantity == 0) {
-                console.log('Remplir toutes les infos');
-                infoError.innerHTML = '<p>Veuillez remplir toutes les informations et recommencer</p>'
-                showErrorInfos(infoError)
-            } else {
-                productChooses.push({id :data._id, quantity : itemQuantity, color : itemcolors.value})         
-                console.log(productChooses);
-            }
+            if(itemQuantity <= 0 ){
+                console.log('quantité mauvaise');
+                infoError.innerHTML = '<p>Veuillez choisir une quantité</p>';
+                showError(infoError);
+            };
+            if(itemcolors.value !== '' && itemQuantity >= 1) {
+                productChooses.push({id :data._id, quantity : itemQuantity, color : itemcolors.value});
+                console.log(productChooses);      
+            }; 
     });
 
 };

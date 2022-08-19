@@ -6,7 +6,7 @@ const productName = document.querySelector('.productName');
 const productDescription = document.querySelector('.productDescription');
 
 function showInfos(){
-    mainTitle.innerHTML = 'Vérifiez que le serveur est allumé'
+    mainTitle.innerHTML = 'Vérifiez que le serveur soit allumé'
     mainSubtitle.innerHTML = ''
 };
 showInfos();
