@@ -33,7 +33,15 @@ function displayProduct(data){
         newOption.innerHTML = `<option value="${color}">${color}</option>`
         itemcolors.append(newOption);
     };
-    getProductChooses(data);
+        getProductChooses(data);
+};
+
+class productSelected {
+    constructor(id, quantity, color){
+        this.id = id, 
+        this.quantity = quantity,
+        this.color = color
+    }
 };
 
 function getProductChooses(data){
@@ -45,14 +53,16 @@ function getProductChooses(data){
             const productChooses = [];
 
             if(itemQuantity <= 0 ){
-                console.log('quantité mauvaise');
                 infoError.innerHTML = '<p>Veuillez choisir une quantité</p>';
                 showError(infoError);
             };
             if(itemcolors.value !== '' && itemQuantity >= 1) {
-                productChooses.push({id :data._id, quantity : itemQuantity, color : itemcolors.value});
-                console.log(productChooses);      
+                const productSelection = new productSelected(data._id, itemQuantity, itemcolors.value);
+                productChooses.push(productSelection);     
+                console.log(productSelection);  
+                localStorage.setItem('productSelected', JSON.stringify(productChooses));
             }; 
     });
 
 };
+
