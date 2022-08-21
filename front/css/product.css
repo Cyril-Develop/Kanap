@@ -65,6 +65,30 @@
 	padding: 10px 0;
 	background-color: crimson;
 }
+
+.popupAddToCart{
+	position: absolute;
+	left: 50%;
+	top: 75%;
+	padding: 10px 15px;
+	font-size: 22px;
+	letter-spacing: 1px;
+	box-shadow: 0 2px 8px black;
+	border-radius: 10px;
+	background-color: #2c3e50;
+	color: white;
+	animation : appear 0.4s ease-in-out forwards;
+}
+@keyframes appear {
+	from{
+		opacity: 0;
+		transform: translate(-50%, -20px);
+	}
+	to{
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+}
 /**************/
 .item__content__settings__color {
 	margin-bottom: 10px;

@@ -5,15 +5,7 @@ const itemDescription = document.querySelector('#description');
 const itemcolors = document.querySelector('#colors');
 const btnAddToCart = document.getElementById('addToCart');
 const blocItemContent = document.querySelector('.item__content__settings');
-const infoError = document.createElement('p');
-
-function showError(infoError){
-    blocItemContent.append(infoError);
-    infoError.classList.add('showError');
-    setTimeout(() => {
-        infoError.remove('showError')
-    }, 4000);
-};
+const blocItem = document.querySelector('.item__img');
 
 const getProductData = async function(){
     const productId = new URL(location.href).searchParams.get('id');
@@ -33,36 +25,78 @@ function displayProduct(data){
         newOption.innerHTML = `<option value="${color}">${color}</option>`
         itemcolors.append(newOption);
     };
-        getProductChooses(data);
+    getchosenProducts(data);
 };
 
-class productSelected {
+class optionsProductSelected {
     constructor(id, quantity, color){
         this.id = id, 
-        this.quantity = quantity,
+        this.quantity = Number(quantity),
         this.color = color
     }
 };
-
-function getProductChooses(data){
+function getchosenProducts(data){
 
         btnAddToCart.addEventListener('click', () => {
 
             const itemQuantity = document.getElementById('quantity').value;
 
-            const productChooses = [];
-
             if(itemQuantity <= 0 ){
                 infoError.innerHTML = '<p>Veuillez choisir une quantité</p>';
                 showError(infoError);
-            };
-            if(itemcolors.value !== '' && itemQuantity >= 1) {
-                const productSelection = new productSelected(data._id, itemQuantity, itemcolors.value);
-                productChooses.push(productSelection);     
-                console.log(productSelection);  
-                localStorage.setItem('productSelected', JSON.stringify(productChooses));
-            }; 
+            } else {
+                const choiceOptionsProduct = new optionsProductSelected(data._id, itemQuantity, itemcolors.value);
+                pushToLocalStorage(choiceOptionsProduct);
+                
+            };    
     });
-
 };
 
+function pushToLocalStorage(choiceOptionsProduct){
+
+    let registeredProducts = JSON.parse(localStorage.getItem('productSelected'))
+
+    if(registeredProducts){
+
+        const compareProducts = registeredProducts.find(el => el.id === choiceOptionsProduct.id && el.color === choiceOptionsProduct.color);
+
+        if(compareProducts) {
+            let newQuantity = choiceOptionsProduct.quantity + compareProducts.quantity;
+            compareProducts.quantity = newQuantity;
+            localStorage.setItem("productSelected", JSON.stringify(registeredProducts));
+            console.log(registeredProducts);   
+            popupAddToCart()     
+        } else {
+            registeredProducts .push(choiceOptionsProduct);
+            localStorage.setItem("productSelected", JSON.stringify(registeredProducts));
+            console.log(registeredProducts);
+            popupAddToCart()
+        }
+
+    } else {
+        registeredProducts = [];
+        registeredProducts.push(choiceOptionsProduct);
+        localStorage.setItem('productSelected', JSON.stringify(registeredProducts));
+        console.log(registeredProducts);
+        popupAddToCart()
+    }
+
+    function popupAddToCart(){
+        const showPopup = document.createElement('p');
+        showPopup.innerHTML = '<p>Produit ajouté au panier</p>'
+        blocItem.append(showPopup);
+        showPopup.classList.add('popupAddToCart');
+        setTimeout(() => {
+            showPopup.remove('popupAddToCart')
+        }, 2000);
+    }
+};    
+
+const infoError = document.createElement('p');
+function showError(infoError){
+    blocItemContent.append(infoError);
+    infoError.classList.add('showError');
+    setTimeout(() => {
+        infoError.remove('showError')
+    }, 4000);
+};

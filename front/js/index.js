@@ -14,9 +14,7 @@ showInfos();
 const getProducts = async () => {
     let response = await fetch('http://localhost:3000/api/products')
     if (response.ok) {
-        console.log(response);
         let data = await response.json()
-        console.log(data);
         showInfos()
         mainTitle.innerHTML = ''
         mainSubtitle.innerHTML = ''
