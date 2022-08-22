@@ -29,10 +29,12 @@ function displayProduct(data){
 };
 
 class optionsProductSelected {
-    constructor(id, quantity, color){
+    constructor(id, quantity, color, img, name){
         this.id = id, 
         this.quantity = Number(quantity),
-        this.color = color
+        this.color = color,
+        this.img = img,
+        this.name = name
     }
 };
 function getchosenProducts(data){
@@ -45,7 +47,7 @@ function getchosenProducts(data){
                 infoError.innerHTML = '<p>Veuillez choisir une quantité</p>';
                 showError(infoError);
             } else {
-                const choiceOptionsProduct = new optionsProductSelected(data._id, itemQuantity, itemcolors.value);
+                const choiceOptionsProduct = new optionsProductSelected(data._id, itemQuantity, itemcolors.value, data.imageUrl, data.name);
                 pushToLocalStorage(choiceOptionsProduct);
                 
             };    
@@ -56,8 +58,15 @@ function pushToLocalStorage(choiceOptionsProduct){
 
     let registeredProducts = JSON.parse(localStorage.getItem('productSelected'))
 
-    if(registeredProducts){
+    if(!registeredProducts){
 
+        registeredProducts = [];
+        registeredProducts.push(choiceOptionsProduct);
+        localStorage.setItem('productSelected', JSON.stringify(registeredProducts));
+        console.log(registeredProducts);
+        popupAddToCart()
+
+    } else {
         const compareProducts = registeredProducts.find(el => el.id === choiceOptionsProduct.id && el.color === choiceOptionsProduct.color);
 
         if(compareProducts) {
@@ -72,14 +81,7 @@ function pushToLocalStorage(choiceOptionsProduct){
             console.log(registeredProducts);
             popupAddToCart()
         }
-
-    } else {
-        registeredProducts = [];
-        registeredProducts.push(choiceOptionsProduct);
-        localStorage.setItem('productSelected', JSON.stringify(registeredProducts));
-        console.log(registeredProducts);
-        popupAddToCart()
-    }
+    };
 
     function popupAddToCart(){
         const showPopup = document.createElement('p');
