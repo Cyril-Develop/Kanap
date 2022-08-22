@@ -29,12 +29,13 @@ function displayProduct(data){
 };
 
 class optionsProductSelected {
-    constructor(id, quantity, color, img, name){
+    constructor(id, quantity, color, img, name, price){
         this.id = id, 
         this.quantity = Number(quantity),
         this.color = color,
         this.img = img,
-        this.name = name
+        this.name = name,
+        this.price = price
     }
 };
 function getchosenProducts(data){
@@ -47,7 +48,7 @@ function getchosenProducts(data){
                 infoError.innerHTML = '<p>Veuillez choisir une quantité</p>';
                 showError(infoError);
             } else {
-                const choiceOptionsProduct = new optionsProductSelected(data._id, itemQuantity, itemcolors.value, data.imageUrl, data.name);
+                const choiceOptionsProduct = new optionsProductSelected(data._id, itemQuantity, itemcolors.value, data.imageUrl, data.name, data.price);
                 pushToLocalStorage(choiceOptionsProduct);
                 
             };    
