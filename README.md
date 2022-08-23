@@ -17,7 +17,7 @@
 - CSS
 - JS
 
-<!-- ![GitHub repo size](https://img.shields.io/github/repo-size/Cyril-Develop/LaPanthere?style=for-the-badge) -->
+ ![GitHub repo size](https://img.shields.io/github/repo-size/Cyril-Develop/Kanap?style=for-the-badge) 
 
 
 
