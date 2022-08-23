@@ -15,6 +15,7 @@
 	width: 50%;
 }
 .item__img {
+	position: relative;
 	width: 100%;
 }
 .item__img img {
@@ -68,8 +69,8 @@
 
 .popupAddToCart{
 	position: absolute;
+	top: 0;
 	left: 50%;
-	top: 75%;
 	padding: 10px 15px;
 	font-size: 22px;
 	letter-spacing: 1px;

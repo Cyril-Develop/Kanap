@@ -1,56 +1,37 @@
 const mainTitle = document.querySelector('.titles h1');
 const mainSubtitle = document.querySelector('.titles h2');
-const productId = document.querySelector('#items a');
-const img = document.querySelector('article img');
-const productName = document.querySelector('.productName');
-const productDescription = document.querySelector('.productDescription');
+let titleHomePage = document.querySelector('.titles');
 
 function showInfos(){
-    mainTitle.innerHTML = 'Vérifiez que le serveur soit allumé'
-    mainSubtitle.innerHTML = ''
+    titleHomePage.innerHTML = `<h1>Vérifiez que le serveur soit allumé</h1>`
 };
 showInfos();
 
 const getProducts = async () => {
-    let response = await fetch('http://localhost:3000/api/products')
+    let response = await fetch('http://localhost:3000/api/products');
     if (response.ok) {
-        let data = await response.json()
-        showInfos()
-        mainTitle.innerHTML = ''
-        mainSubtitle.innerHTML = ''
-        showData(data)
+        let data = await response.json();
+        showInfos();
+        titleHomePage.innerHTML = ` <h1>Nos produits</h1>
+                                    <h2>Une gamme d'articles exclusifs</h2>`
+        showData(data);
     } else {
         console.log('Retour du serveur : ', response.status);
-        showInfos()
-        mainTitle.innerHTML = 'Le serveur ne répond pas...'
-        mainSubtitle.innerHTML = ''
+        showInfos();
+        titleHomePage.innerHTML = `<h1>Le serveur ne répond pas...</h1>`
     }
 };
 getProducts();
 
 function showData(products) {
-    products.forEach(item => {
-        let newA = document.createElement('a')
-        document.querySelector('#items').append(newA);
-
-        let newArticle = document.createElement('article')
-        newA.append(newArticle);
-
-        let newImg = document.createElement('img')
-        newArticle.append(newImg);
-
-        let newTitle = document.createElement('h3')
-        newTitle.className = 'productName'
-        newArticle.append(newTitle);
-
-        let newP = document.createElement('p')
-        newP.className = 'productDescription'
-        newArticle.append(newP);
-
-        newA.href += `./product.html?id=${item._id}`;
-        newImg.src = item.imageUrl;
-        newImg.alt = item.altTxt;
-        newTitle.textContent = item.name;
-        newP.textContent = item.description;
-    })
+    for(let product of products) {
+        let productList =   `<a href="./product.html?id=${product._id}">
+                                <article>
+                                <img src="${product.imageUrl}" alt="${product.altTxt}">
+                                <h3 class="productName">${product.name}</h3>
+                                <p class="productDescription">${product.description}</p>
+                                </article>
+                            </a>`;       
+        document.querySelector('#items').innerHTML += productList; 
+    }
 };

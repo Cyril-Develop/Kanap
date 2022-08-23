@@ -49,8 +49,7 @@ function getchosenProducts(data){
                 showError(infoError);
             } else {
                 const choiceOptionsProduct = new optionsProductSelected(data._id, itemQuantity, itemcolors.value, data.imageUrl, data.name, data.price);
-                pushToLocalStorage(choiceOptionsProduct);
-                
+                pushToLocalStorage(choiceOptionsProduct);   
             };    
     });
 };
