@@ -1,3 +1,6 @@
+const cartAndFormContainer = document.querySelector('#cartAndFormContainer h1')
+const deletionInfo = document.createElement('p');
+
 const productInStorage = JSON.parse(localStorage.getItem('productSelected'));
 
 if(!productInStorage){
@@ -33,26 +36,46 @@ if(!productInStorage){
                                         </div>
                                         </div>
                                     </article>`;
-                    document.querySelector('#cart__items').innerHTML += modelCard;   
-            
+                    document.querySelector('#cart__items').innerHTML += modelCard;  
+                    
+                    //delete quantity
                     ////////////////////////////////////////////////////////////////////////////
-                    // const deleteItem = document.querySelectorAll('.deleteItem');
-                    // deleteItem.forEach(item => {
+                    const deleteItem = document.querySelectorAll('.deleteItem');
+                    deleteItem.forEach(item => {
             
-                    //     item.addEventListener('click', () => {
-                
-                    //         let productToDelete = item.closest('article');
-                    //         //productToDelete.remove()
-                    //         console.log(productToDelete);
-                
-                    //     })
-            
-                    // })
+                        item.addEventListener('click', () => {
+                            // showDeletion();
+                            let produtSelectedForDeletion = item.closest('article');
+                            let idProductToDelete = produtSelectedForDeletion.getAttribute('data-id');
+                            const foundProduct = productInStorage.find(el => el.id === idProductToDelete);
+                            //productInStorage.pop(foundProduct);
+                            //produtSelectedForDeletion.remove();
+                            
+                            localStorage.setItem('productSelected', JSON.stringify(productInStorage));
+                            if(productInStorage.length === 0){
+                                localStorage.clear()
+                            }
+                            alert('Produit retiré du panier')
+                            location.reload(); 
+                            
+                        });
+                        
+                    });
+                    
+                    //show total
+                    ////////////////////////////////////////////////////////////////////////////
+              
                 }
                            
         })
     }
 };
-
-
+// function showDeletion(){
+//     deletionInfo.innerHTML = 'Produit retiré du panier'
+//     cartAndFormContainer.append(deletionInfo);
+//     deletionInfo.classList.add('showDeletion');
+//     setTimeout(() => {
+//         deletionInfo.remove('showDeletion')
+//     }, 4000);
+// }
 
