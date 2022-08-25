@@ -1,44 +1,58 @@
 const productInStorage = JSON.parse(localStorage.getItem('productSelected'));
 
-console.log(productInStorage);
-
 if(!productInStorage){
     document.querySelector('.cartAndFormContainer h1').innerHTML = 'Votre panier est vide.';
     document.querySelector('.cart').style.display = 'none';
 }else{
     for(let product of productInStorage){
-        let modelCard = ` <article class="cart__item" data-id="${product.id}" data-color="${product.color}">
-                            <div class="cart__item__img">
-                            <img src="${product.img}" alt="Photographie d'un canapé ${product.name}">
-                            </div>
-                            <div class="cart__item__content">
-                            <div class="cart__item__content__description">
-                                <h2>${product.name}</h2>
-                                <p>${product.color}</p>
-                                <p>${product.price} €</p>
-                            </div>
-                            <div class="cart__item__content__settings">
-                                <div class="cart__item__content__settings__quantity">
-                                <p>Qté : </p>
-                                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantity}">
-                                </div>
-                                <div class="cart__item__content__settings__delete">
-                                <p class="deleteItem" id="[item_Id]">Supprimer</p>
-                                </div>
-                            </div>
-                            </div>
-                        </article>`;
-        document.querySelector('#cart__items').innerHTML += modelCard;  
+        fetch(`http://localhost:3000/api/products/${product.id}`)
+            .then(res => res.json())
+            .then(data => {
+                if(!productInStorage){
+                    document.querySelector('.cartAndFormContainer h1').innerHTML = 'Votre panier est vide.';
+                    document.querySelector('.cart').style.display = 'none';
+                }else{
+                    let modelCard = ` <article class="cart__item" data-id="${data._id}" data-color="${product.color}">
+                                        <div class="cart__item__img">
+                                        <img src="${data.imageUrl}" alt="Photographie d'un canapé ${data.name}">
+                                        </div>
+                                        <div class="cart__item__content">
+                                        <div class="cart__item__content__description">
+                                            <h2>${data.name}</h2>
+                                            <p>${product.color}</p>
+                                            <p>${data.price} €</p>
+                                        </div>
+                                        <div class="cart__item__content__settings">
+                                            <div class="cart__item__content__settings__quantity">
+                                            <p>Qté : </p>
+                                            <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantity}">
+                                            </div>
+                                            <div class="cart__item__content__settings__delete">
+                                            <p class="deleteItem">Supprimer</p>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </article>`;
+                    document.querySelector('#cart__items').innerHTML += modelCard;   
             
+                    ////////////////////////////////////////////////////////////////////////////
+                    // const deleteItem = document.querySelectorAll('.deleteItem');
+                    // deleteItem.forEach(item => {
+            
+                    //     item.addEventListener('click', () => {
+                
+                    //         let productToDelete = item.closest('article');
+                    //         //productToDelete.remove()
+                    //         console.log(productToDelete);
+                
+                    //     })
+            
+                    // })
+                }
+                           
+        })
     }
-
 };
-
-function displayTotal(){
-    
-}
-
-
 
 
 
