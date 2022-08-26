@@ -133,34 +133,6 @@ h2 {
 .cart__order__form__submit input:hover {
 	box-shadow: rgb(42 18 206 / 90%) 0 0 22px 6px;
 }
-/***************/
-/*Add class JS*/
-/***************/
-.showDeletion{
-	position: fixed;
-	top: 0;
-	left: 50%;
-	padding: 10px 15px;
-	text-align: center;
-	font-size: 22px;
-	letter-spacing: 1px;
-	box-shadow: 0 2px 8px black;
-	border-radius: 10px;
-	background-color: var(--secondary-color);
-	color: white;
-	animation : appear 0.4s ease-in-out forwards;
-}
-@keyframes appear {
-	from{
-		opacity: 0;
-		transform: translate(-50%, -20px);
-	}
-	to{
-		opacity: 1;
-		transform: translate(-50%, 0);
-	}
-}
-
 
 /***************/
 /*Media queries*/
