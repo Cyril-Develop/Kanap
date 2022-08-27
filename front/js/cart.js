@@ -39,14 +39,42 @@ function displayProduct(){
                     </article>`;
                 document.querySelector('#cart__items').innerHTML += modelCard; 
 
-                changeTotal(product);
-
-                //Total quantite produit
+                changeTotal();
+                //Total product quantity
                 totalProductsQuantity += product.quantity;
                 document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
-                //Total quantite produit
+                //Total product price
                 totalProductsPrice += product.quantity * data.price;
                 document.getElementById("totalPrice").innerHTML = totalProductsPrice;
+
+                function changeTotal(){
+                    let productInStorage = getBasket();
+                    let allInputQuantity = document.querySelectorAll('.itemQuantity');
+                    allInputQuantity.forEach(input => {
+                        input.addEventListener('change', e => {
+
+                            if (input.value < 1) {
+                                input.value = 1;
+                            } else {
+                                let targetProduct = e.target.closest("article").getAttribute('data-id');
+                                let foundTargetProduct = productInStorage.find(product => product.id == targetProduct);
+                                foundTargetProduct.quantity = Number(input.value);
+
+                                saveBasket(productInStorage)
+                            }
+                            let newTotalProduct = 0;
+                            for(let product of productInStorage){
+                                newTotalProduct += product.quantity;
+                            }
+                            //Total new quantity
+                            totalProductsQuantity = newTotalProduct;
+                            document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
+                            //Total new price
+                            totalProductsPrice = newTotalProduct * data.price;
+                            document.getElementById("totalPrice").innerHTML = totalProductsPrice;
+                        })
+                    });
+                }
         
                 deleteProduct();
             }
@@ -56,7 +84,6 @@ function displayProduct(){
 displayProduct();
 
 function deleteProduct(){
-
     let productInStorage = getBasket();
 
     const deleteItem = document.querySelectorAll('.deleteItem');
@@ -75,29 +102,11 @@ function deleteProduct(){
             }
             alert('Produit retiré du panier')
             location.reload();    
-        });
-        
+        }); 
     });
 };
 
-function changeTotal(product){
-    let productInStorage = getBasket();
-    let allInputQuantity = document.querySelectorAll('.itemQuantity');
-    allInputQuantity.forEach(input => {
-        input.addEventListener('change', e => {
-            if (input.value < 1) {
-                input.value = 1;
-            } else {
-                console.log(input);
-                let targetProduct = e.target.closest("article").getAttribute('data-id');
-                let foundTargetProduct = productInStorage.find(product => product.id == targetProduct);
-                foundTargetProduct.quantity = Number(input.value);
-                console.log(product);
-                saveBasket(productInStorage)
-            }
-        })
-    });
-}
+
                  
 
 

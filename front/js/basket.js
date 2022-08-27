@@ -13,7 +13,7 @@ export function getBasket(){
 
 export function addBasket(product) {
     let basket = getBasket();
-    let foundProduct = basket.find(p => p.id == product.id)
+    let foundProduct = basket.find(p => p.id == product.id && p.color == product.color)
     if(foundProduct != undefined){
         let newQuantity = foundProduct.quantity + product.quantity;
         foundProduct.quantity = newQuantity
