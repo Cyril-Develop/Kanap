@@ -1,5 +1,7 @@
 import {getBasket} from './basket.js'; 
 import {saveBasket} from './basket.js'; 
+import {saveForm} from './basket.js'; 
+import {getForm} from './basket.js'; 
 
 let totalProductsQuantity = 0;
 let totalProductsPrice = 0;
@@ -40,6 +42,7 @@ function displayProduct(){
                 document.querySelector('#cart__items').innerHTML += modelCard; 
 
                 changeTotal();
+                deleteProduct();
                 //Total product quantity
                 totalProductsQuantity += product.quantity;
                 document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
@@ -74,13 +77,11 @@ function displayProduct(){
                             document.getElementById("totalPrice").innerHTML = totalProductsPrice;
                         })
                     });
-                }
-        
-                deleteProduct();
+                }                   
             }
         )}
     }
-}
+};
 displayProduct();
 
 function deleteProduct(){
@@ -106,6 +107,32 @@ function deleteProduct(){
     });
 };
 
+/************/
+/*FORMULAIRE*/
+/************/
+let form = getForm();
+
+document.querySelector('#firstName').value = form.firstName;
+document.querySelector('#lastName').value = form.lastName;
+document.querySelector('#address').value = form.address;
+document.querySelector('#city').value = form.city;
+document.querySelector('#email').value = form.email;
+
+document.querySelector('.cart__order__form').addEventListener('submit', (e) => {
+    
+    e.preventDefault();
+    
+    const formValue = {
+        firstName : document.querySelector('#firstName').value,
+        lastName : document.querySelector('#lastName').value,
+        address : document.querySelector('#address').value,
+        city : document.querySelector('#city').value,
+        email : document.querySelector('#email').value
+    }
+
+    saveForm(formValue);
+
+});
 
                  
 

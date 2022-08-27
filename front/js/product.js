@@ -1,4 +1,3 @@
-
 import {addBasket} from './basket.js'; 
 
 const itemImg = document.querySelector('.item__img');
@@ -48,42 +47,12 @@ function getchosenProducts(data){
                 infoError.innerHTML = '<p>Veuillez choisir une quantité</p>';
                 showError(infoError);
             } else {
-                const productSelected = new optionsProductSelected(data._id, itemQuantity, itemcolors.value);
-                // pushToLocalStorage(productSelected);   
+                const productSelected = new optionsProductSelected(data._id, itemQuantity, itemcolors.value);  
                 addBasket(productSelected);
                 productAdded();
             };    
     });
 };
-
-// function pushToLocalStorage(choiceOptionsProduct){
-
-//     let registeredProducts = JSON.parse(localStorage.getItem('basket'))
-
-//     if(!registeredProducts){
-
-//         registeredProducts = [];
-//         registeredProducts.push(choiceOptionsProduct);
-//         localStorage.setItem('basket', JSON.stringify(registeredProducts));
-//         console.log(registeredProducts);
-//         popupAddToCart()
-
-//     } else {
-//         const compareProducts = registeredProducts.find(el => el.id === choiceOptionsProduct.id && el.color === choiceOptionsProduct.color);
-
-//         if(compareProducts) {
-//             let newQuantity = choiceOptionsProduct.quantity + compareProducts.quantity;
-//             compareProducts.quantity = newQuantity;
-//             localStorage.setItem("basket", JSON.stringify(registeredProducts));
-//             console.log(registeredProducts);   
-//             popupAddToCart()     
-//         } else {
-//             registeredProducts.push(choiceOptionsProduct);
-//             localStorage.setItem("basket", JSON.stringify(registeredProducts));
-//             console.log(registeredProducts);
-//             popupAddToCart()
-//         }
-//     };
 
 function productAdded(){
     const showPopup = document.createElement('p');
@@ -94,8 +63,7 @@ function productAdded(){
         showPopup.remove('popupAddToCart')
     }, 2000);
 }
-// };    
-
+  
 const infoError = document.createElement('p');
 function showError(infoError){
     blocItemContent.append(infoError);

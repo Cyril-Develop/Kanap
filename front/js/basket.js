@@ -24,7 +24,17 @@ export function addBasket(product) {
 };
 
 
+/************/
+/*FORMULAIRE*/
+/************/
 
+export function saveForm(formValue){
+    localStorage.setItem('form', JSON.stringify(formValue));
+};
 
+export function getForm(){
+    let form = localStorage.getItem('form');
+    return JSON.parse(form);
+};
 
 
