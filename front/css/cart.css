@@ -134,6 +134,13 @@ h2 {
 	box-shadow: rgb(42 18 206 / 90%) 0 0 22px 6px;
 }
 
+/*  */
+
+.cart__order__form__question input.showInputError{
+	border: 2px solid #fbbcbc;
+}
+
+
 /***************/
 /*Media queries*/
 /***************/

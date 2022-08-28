@@ -1,7 +1,7 @@
 import {getBasket} from './basket.js'; 
 import {saveBasket} from './basket.js'; 
-import {saveForm} from './basket.js'; 
 import {getForm} from './basket.js'; 
+import {saveForm} from './basket.js'; 
 
 let totalProductsQuantity = 0;
 let totalProductsPrice = 0;
@@ -107,32 +107,144 @@ function deleteProduct(){
     });
 };
 
-/************/
 /*FORMULAIRE*/
-/************/
+
 let form = getForm();
 
-document.querySelector('#firstName').value = form.firstName;
-document.querySelector('#lastName').value = form.lastName;
-document.querySelector('#address').value = form.address;
-document.querySelector('#city').value = form.city;
-document.querySelector('#email').value = form.email;
+if(form !== null){
+    document.querySelector('#firstName').value = form.firstName;
+    document.querySelector('#lastName').value = form.lastName;
+    document.querySelector('#address').value = form.address;
+    document.querySelector('#city').value = form.city;
+    document.querySelector('#email').value = form.email;
+};
+
+function showErrorInput(inputMessage, input){
+    inputMessage.innerHTML = 'Veuillez renseigner ce champ.';
+    input.classList.add('showInputError')
+    setTimeout(() => {
+        inputMessage.innerHTML = '';
+        input.classList.remove('showInputError')
+    }, 3000);
+};
 
 document.querySelector('.cart__order__form').addEventListener('submit', (e) => {
     
     e.preventDefault();
-    
-    const formValue = {
+
+    let formValue = {
         firstName : document.querySelector('#firstName').value,
         lastName : document.querySelector('#lastName').value,
         address : document.querySelector('#address').value,
         city : document.querySelector('#city').value,
         email : document.querySelector('#email').value
+    };
+
+    let inputValidation = {
+        firstName : false,
+        lastName : false,
+        address : false,
+        city : false,
+        email : false
+    };
+
+    document.querySelector('#firstNameErrorMsg').innerHTML = '';
+    document.querySelector('#firstName').style.border = 'none';
+    document.querySelector('#lastNameErrorMsg').innerHTML = '';
+    document.querySelector('#lastName').style.border = 'none';
+    document.querySelector('#addressErrorMsg').innerHTML = '';
+    document.querySelector('#address').style.border = 'none';
+    document.querySelector('#cityErrorMsg').innerHTML = '';
+    document.querySelector('#city').style.border = 'none';
+    document.querySelector('#emailErrorMsg').innerHTML = '';
+    document.querySelector('#email').style.border = 'none';
+
+    if(formValue.firstName == ''){
+        showErrorInput(document.querySelector('#firstNameErrorMsg'), document.querySelector('#firstName'))
+    } else if(!/^([A-Aa-z]{3,15})?([-]{0,1})?([A-Aa-z]{3,15})$/.test(formValue.firstName)){
+        document.querySelector('#firstNameErrorMsg').innerHTML = 'Minimum 3 caractères, maximum 15 caractères. Les chiffres et caractères spéciaux différents de - ne sont pas autorisés.';
+        document.querySelector('#firstName').style.border = '2px solid crimson';    
+    } else {
+        inputValidation.firstName = true;
+    };
+
+    if(formValue.lastName == ''){
+        showErrorInput(document.querySelector('#lastNameErrorMsg'), document.querySelector('#lastName'))
+    } else if(!/^([A-Aa-z|\s]{3,15})?([-]{0,1})?([A-Aa-z|\s]{3,15})$/.test(formValue.lastName)){
+        document.querySelector('#lastNameErrorMsg').innerHTML = 'Minimum 3 caractères, maximum 15 caractères. Les chiffres et caractères spéciaux différents de - ne sont pas autorisés.';
+        document.querySelector('#lastName').style.border = '2px solid crimson';    
+    } else {
+        inputValidation.lastName = true;
+    };
+
+    if(formValue.address == ''){
+        showErrorInput(document.querySelector('#addressErrorMsg'), document.querySelector('#address'))
+    } else if(!/^[A-Za-z0-9\s]{3,50}$/.test(formValue.address)){
+        document.querySelector('#addressErrorMsg').innerHTML = 'Minimum 3 caractères, maximum 15 caractères. Les caractères spéciaux ne sont pas autorisés.';
+        document.querySelector('#address').style.border = '2px solid crimson';    
+    } else {
+        inputValidation.address = true;
+    };
+
+    if(formValue.city == ''){
+        showErrorInput(document.querySelector('#cityErrorMsg'), document.querySelector('#city'))
+    } else if(!/^([a-zA-Z|\s]{3,15})?([-]{0,1})$/.test(formValue.city)){
+        document.querySelector('#cityErrorMsg').innerHTML = 'Minimum 3 caractères, maximum 15 caractères. Les chiffres et caractères spéciaux ne sont pas autorisés.';
+        document.querySelector('#city').style.border = '2px solid crimson';    
+    } else {
+        inputValidation.city = true;
+    };
+
+    if(formValue.email == ''){
+        showErrorInput(document.querySelector('#emailErrorMsg'), document.querySelector('#email'))
+    } else if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formValue.email)){
+        document.querySelector('#emailErrorMsg').innerHTML = 'Minimum 2 caractères, maximum 15 caractères. Les chiffres et caractères spéciaux ne sont pas autorisés.';
+        document.querySelector('#email').style.border = '2px solid crimson';    
+    } else {
+        inputValidation.email = true;
+    };
+
+    if(inputValidation.firstName, inputValidation.lastName, inputValidation.address, inputValidation.city, inputValidation.email){
+        saveForm(formValue);
+        sendForm(formValue);
+    }
+}); 
+
+function sendForm(formValue){
+
+    let productInStorage = getBasket();
+    let products = [];
+    for(let product of productInStorage){
+        products.push(product.id)
     }
 
-    saveForm(formValue);
+    let contact = formValue;
 
-});
+    const sendFormData = {
+        contact,
+        products,
+      }
+
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(sendFormData),
+        headers: { 
+          'Content-Type': 'application/json',
+        }
+      };
+
+    fetch("http://localhost:3000/api/products/order", options)
+        .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('orderId', data.orderId);
+                document.location.href =`confirmation.html?id=${data.orderId}`;
+                localStorage.clear();
+    });
+
+};      
+    
+
+
 
                  
 
