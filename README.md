@@ -8,7 +8,7 @@
 
 
 
-<!-- ![screenshot du site](img/screenshotSite.jpg)  -->
+![screenshot du site](front/images/screenshot/screenshotAccueil.jpg)  
 
 
 
