@@ -23,7 +23,7 @@
 
 ### Installation :
 
-`Node` et `npm` doivent être installés localement sur votre machine.
+`Node` et `npm` doivent être installés localement sur votre machine.\
 Installez toutes les dépendances avec npm.
 
 Ouvrez le répertoire `back` dans le terminal :
