@@ -4,7 +4,7 @@
 
 
 
-## 📎 Projet 5: Kanap
+## 📎 Projet 5 : Kanap
 
 
 
@@ -20,8 +20,14 @@
 - JS
 
  ![GitHub repo size](https://img.shields.io/github/repo-size/Cyril-Develop/Kanap?style=for-the-badge) 
+ 
+ ## Tester le projet :
 
-### Installation :
+```terminal
+git clone https://github.com/Cyril-Develop/Kanap.git
+```
+
+## Installation :
 
 `Node` et `npm` doivent être installés localement sur votre machine.\
 Installez toutes les dépendances avec npm.
@@ -34,10 +40,4 @@ npm install
 Pour lancer le server :
 ```terminal
 node server
-```
-
-## Tester le projet :
-
-```terminal
-git clone https://github.com/Cyril-Develop/Kanap.git
 ```
