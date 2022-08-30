@@ -26,12 +26,15 @@
 `Node` et `npm` doivent être installés localement sur votre machine.\
 Installez toutes les dépendances avec npm.
 
-Ouvrez le répertoire `back` dans le terminal :
+Ouvrez le répertoire `back` depuis le terminal, puis :
 ```terminal
 npm install
 ```
 
-Puis lancer le server avec `node server`.
+Pour lancer le server :
+```terminal
+node server
+```
 
 ## Tester le projet :
 
