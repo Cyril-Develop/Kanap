@@ -1,11 +1,13 @@
 const mainTitle = document.querySelector('.titles h1');
 const titleHomePage = document.querySelector('.titles');
 
+//Error message if the server is not on
 function showInfos(){
     titleHomePage.innerHTML = `<h1>Vérifiez que le serveur soit allumé</h1>`
 };
 showInfos();
 
+//Call to the API to retrieve all products
 fetch('http://localhost:3000/api/products')
     .then(res => {
         if(res.ok){
@@ -22,6 +24,7 @@ fetch('http://localhost:3000/api/products')
         }
 });
 
+//We use the information retrieved via the API to display all the products
 function showData(products) {
     for(let product of products) {
         let productList =   `<a href="./product.html?id=${product._id}">

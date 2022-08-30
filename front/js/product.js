@@ -7,8 +7,8 @@ const itemDescription = document.querySelector('#description');
 const itemcolors = document.querySelector('#colors');
 const btnAddToCart = document.getElementById('addToCart');
 const blocItemContent = document.querySelector('.item__content__settings');
-const body = document.querySelector('body');
 
+//retrieval of product information via id
 const getProductData = async function(){
     const productId = new URL(location.href).searchParams.get('id');
     const response = await fetch(`http://localhost:3000/api/products/${productId}`);
@@ -17,6 +17,7 @@ const getProductData = async function(){
 };
 getProductData();
 
+//Display info in the page
 function displayProduct(data){
     itemImg.appendChild(document.createElement('img')).src = data.imageUrl;
     itemTitle.innerHTML = data.name;
@@ -37,6 +38,7 @@ class optionsProductSelected {
         this.color = color
     }
 };
+//Send product info to local storage
 function getchosenProducts(data){
 
         btnAddToCart.addEventListener('click', () => {
@@ -54,7 +56,9 @@ function getchosenProducts(data){
     });
 };
 
+//Popup when adding to cart
 function productAdded(){
+    const body = document.querySelector('body');
     const showPopup = document.createElement('p');
     showPopup.innerHTML = '<p>Produit ajouté au panier</p>'
     body.append(showPopup);
@@ -63,7 +67,7 @@ function productAdded(){
         showPopup.remove('popupAddToCart')
     }, 2000);
 };
-  
+//Popup if the quantity is not at least equal to 1
 const infoError = document.createElement('p');
 function showError(infoError){
     blocItemContent.append(infoError);

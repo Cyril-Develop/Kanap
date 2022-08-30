@@ -39,9 +39,7 @@ export function addBasket(product) {
     saveBasket(basket)
 };
 
-/************/
-/*FORMULAIRE*/
-/************/
+//FOormulaire
 
 export function saveForm(formValue){
     localStorage.setItem('form', JSON.stringify(formValue));

@@ -2,6 +2,7 @@ import {getBasket, saveBasket, saveForm, basketEmpty, productWithdrawn} from './
 
 let totalProductsQuantity = 0;
 let totalProductsPrice = 0;
+//Recovery of products saved in the local storage and call to the API to recover the missing information
 function displayProduct(){
 
 let productInStorage = getBasket();
@@ -101,25 +102,24 @@ function deleteProduct(){
             if(productInStorage.length === 0){
                 localStorage.clear();
                 basketEmpty();
-            }    
-            //Total product quantity
-            //totalProductsQuantity -= foundProductToDelete.quantity;
-            //document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;   
+            }     
         }); 
     });
 };
 
 /*FORMULAIRE*/
 
-function inputEmpty(inputMessage, input){
-    inputMessage.innerHTML = 'Veuillez renseigner ce champ.';
+//Message sent if the input is empty when the form is sent
+function inputEmpty(errorMsg, input){
+    errorMsg.innerHTML = 'Veuillez renseigner ce champ.';
     input.classList.add('showInputError')
     setTimeout(() => {
-        inputMessage.innerHTML = '';
+        errorMsg.innerHTML = '';
         input.classList.remove('showInputError')
     }, 3000);
 };
 
+//Message sent if the input value is not correct
 let errorMessage = [];
 let message = {
     name : 'Minimum 3 caractères, maximum 15 caractères. Les chiffres et caractères spéciaux différents de - ne sont pas autorisés',
@@ -128,11 +128,11 @@ let message = {
     email : 'Veuillez renseigner une adresse mail valide.'
 }
 errorMessage.push(message);
-function inputNotValid(input, inputText, text){
-    inputText.innerHTML = text;
-    input.classList.add('showInputError')
+function inputNotValid(input, errorMsg, msg){
+    errorMsg.innerHTML = msg;
+    input.classList.add('showInputError');
     setTimeout(() => {
-        inputText.innerHTML = '';
+        errorMsg.innerHTML = '';
         input.classList.remove('showInputError')
     }, 5000);
 };
@@ -203,6 +203,7 @@ document.querySelector('.cart__order__form').addEventListener('submit', (e) => {
     }
 }); 
 
+//Send information of cart and form products to server to retrieve order id
 function sendForm(formValue){
 
     let productInStorage = getBasket();
