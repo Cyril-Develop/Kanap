@@ -21,7 +21,17 @@
 
  ![GitHub repo size](https://img.shields.io/github/repo-size/Cyril-Develop/Kanap?style=for-the-badge) 
 
+### Installation :
 
+`Node` et `npm` doivent être installés localement sur votre machine.
+Installez toutes les dépendances avec npm.
+
+Ouvrez le répertoire `back` dans le terminal :
+```terminal
+npm install
+```
+
+Puis lancer le server avec `node server`.
 
 ## Tester le projet :
 
