@@ -111,7 +111,7 @@ function deleteProduct(){
 
 /*FORMULAIRE*/
 
-function showErrorInput(inputMessage, input){
+function inputEmpty(inputMessage, input){
     inputMessage.innerHTML = 'Veuillez renseigner ce champ.';
     input.classList.add('showInputError')
     setTimeout(() => {
@@ -128,7 +128,7 @@ let message = {
     email : 'Veuillez renseigner une adresse mail valide.'
 }
 errorMessage.push(message);
-function showErrorInputValue(input, inputText, text){
+function inputNotValid(input, inputText, text){
     inputText.innerHTML = text;
     input.classList.add('showInputError')
     setTimeout(() => {
@@ -158,41 +158,41 @@ document.querySelector('.cart__order__form').addEventListener('submit', (e) => {
     };
 
     if(formValue.firstName == ''){
-        showErrorInput(document.querySelector('#firstNameErrorMsg'), document.querySelector('#firstName'));
+        inputEmpty(document.querySelector('#firstNameErrorMsg'), document.querySelector('#firstName'));
     } else if(!/^([A-Aa-z]{3,15})?([-]{0,1})?([A-Aa-z]{3,15})$/.test(formValue.firstName)){
-        showErrorInputValue(document.querySelector('#firstName'), document.querySelector('#firstNameErrorMsg'), errorMessage[0].name);
+        inputNotValid(document.querySelector('#firstName'), document.querySelector('#firstNameErrorMsg'), errorMessage[0].name);
     } else {
         inputValidation.firstName = true;
     };
 
     if(formValue.lastName == ''){
-        showErrorInput(document.querySelector('#lastNameErrorMsg'), document.querySelector('#lastName'));
+        inputEmpty(document.querySelector('#lastNameErrorMsg'), document.querySelector('#lastName'));
     } else if(!/^([A-Aa-z|\s]{3,15})?([-]{0,1})?([A-Aa-z|\s]{3,15})$/.test(formValue.lastName)){
-        showErrorInputValue(document.querySelector('#lastName'), document.querySelector('#lastNameErrorMsg'), errorMessage[0].name);   
+        inputNotValid(document.querySelector('#lastName'), document.querySelector('#lastNameErrorMsg'), errorMessage[0].name);   
     } else {
         inputValidation.lastName = true;
     };
 
     if(formValue.address == ''){
-        showErrorInput(document.querySelector('#addressErrorMsg'), document.querySelector('#address'));
+        inputEmpty(document.querySelector('#addressErrorMsg'), document.querySelector('#address'));
     } else if(!/^[A-Za-z0-9\s]{3,50}$/.test(formValue.address)){
-        showErrorInputValue(document.querySelector('#address'), document.querySelector('#addressErrorMsg'), errorMessage[0].address);   
+        inputNotValid(document.querySelector('#address'), document.querySelector('#addressErrorMsg'), errorMessage[0].address);   
     } else {
         inputValidation.address = true;
     };
 
     if(formValue.city == ''){
-        showErrorInput(document.querySelector('#cityErrorMsg'), document.querySelector('#city'));
+        inputEmpty(document.querySelector('#cityErrorMsg'), document.querySelector('#city'));
     } else if(!/^([a-zA-Z|\s]{3,15})?([-]{0,1})$/.test(formValue.city)){
-        showErrorInputValue(document.querySelector('#city'), document.querySelector('#cityErrorMsg'), errorMessage[0].city);  
+        inputNotValid(document.querySelector('#city'), document.querySelector('#cityErrorMsg'), errorMessage[0].city);  
     } else {
         inputValidation.city = true;
     };
 
     if(formValue.email == ''){
-        showErrorInput(document.querySelector('#emailErrorMsg'), document.querySelector('#email'));
+        inputEmpty(document.querySelector('#emailErrorMsg'), document.querySelector('#email'));
     } else if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formValue.email)){
-        showErrorInputValue(document.querySelector('#email'), document.querySelector('#emailErrorMsg'), errorMessage[0].email);  
+        inputNotValid(document.querySelector('#email'), document.querySelector('#emailErrorMsg'), errorMessage[0].email);  
     } else {
         inputValidation.email = true;
     };
