@@ -57,8 +57,8 @@ if(productInStorage.length === 0){
                                 if (input.value < 1) {
                                     input.value = 1;
                                 } else {
-                                    let targetProductId = e.target.closest("article").getAttribute('data-id');
-                                    let foundTargetProduct = productInStorage.find(product => product.id == targetProductId);
+                                    let targetProduct = e.target.closest("article");
+                                    let foundTargetProduct = productInStorage.find(product => product.id == targetProduct.getAttribute('data-id') && product.color == targetProduct.getAttribute('data-color'));
                                     foundTargetProduct.quantity = Number(input.value);
 
                                     saveBasket(productInStorage);
@@ -90,7 +90,7 @@ function deleteProduct(){
     deleteItem.forEach(item => {
         item.addEventListener('click', () => {
             let produtSelectedForDeletion = item.closest('article');
-            const foundProductToDelete = productInStorage.find(el => el.id === produtSelectedForDeletion.getAttribute('data-id'));
+            const foundProductToDelete = productInStorage.find(el => el.id === produtSelectedForDeletion.getAttribute('data-id') && el.color === produtSelectedForDeletion.getAttribute('data-color'));
             const indexProduct = productInStorage.indexOf(foundProductToDelete);
             productInStorage.splice(indexProduct, 1);
             saveBasket(productInStorage);
@@ -106,8 +106,6 @@ function deleteProduct(){
         }); 
     });
 };
-
-/*FORMULAIRE*/
 
 //Message sent if the input is empty when the form is sent
 function inputEmpty(errorMsg, input){
