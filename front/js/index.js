@@ -1,27 +1,26 @@
 const mainTitle = document.querySelector('.titles h1');
-const mainSubtitle = document.querySelector('.titles h2');
-let titleHomePage = document.querySelector('.titles');
+const titleHomePage = document.querySelector('.titles');
 
 function showInfos(){
     titleHomePage.innerHTML = `<h1>Vérifiez que le serveur soit allumé</h1>`
 };
 showInfos();
 
-const getProducts = async () => {
-    let response = await fetch('http://localhost:3000/api/products');
-    if (response.ok) {
-        let data = await response.json();
-        showInfos();
-        titleHomePage.innerHTML = ` <h1>Nos produits</h1>
-                                    <h2>Une gamme d'articles exclusifs</h2>`
-        showData(data);
-    } else {
-        console.log('Retour du serveur : ', response.status);
-        showInfos();
-        titleHomePage.innerHTML = `<h1>Le serveur ne répond pas...</h1>`
-    }
-};
-getProducts();
+fetch('http://localhost:3000/api/products')
+    .then(res => {
+        if(res.ok){
+            res.json().then(data => {
+                showInfos();
+                titleHomePage.innerHTML = ` <h1>Nos produits</h1>
+                                    <h2>Une gamme d'articles exclusifs</h2>`;
+                showData(data);
+            })
+        } else {
+            console.log('Retour du serveur : ', response.status);
+            showInfos();
+            titleHomePage.innerHTML = `<h1>Le serveur ne répond pas...</h1>`
+        }
+});
 
 function showData(products) {
     for(let product of products) {

@@ -7,7 +7,7 @@ const itemDescription = document.querySelector('#description');
 const itemcolors = document.querySelector('#colors');
 const btnAddToCart = document.getElementById('addToCart');
 const blocItemContent = document.querySelector('.item__content__settings');
-const blocItem = document.querySelector('.item__img');
+const body = document.querySelector('body');
 
 const getProductData = async function(){
     const productId = new URL(location.href).searchParams.get('id');
@@ -57,12 +57,12 @@ function getchosenProducts(data){
 function productAdded(){
     const showPopup = document.createElement('p');
     showPopup.innerHTML = '<p>Produit ajouté au panier</p>'
-    blocItem.append(showPopup);
+    body.append(showPopup);
     showPopup.classList.add('popupAddToCart');
     setTimeout(() => {
         showPopup.remove('popupAddToCart')
     }, 2000);
-}
+};
   
 const infoError = document.createElement('p');
 function showError(infoError){
