@@ -10,6 +10,8 @@
 
 ![screenshot du site](front/images/screenshot/screenshotAccueil.jpg)  
 
+![screenshot du site](front/images/screenshot/screenshotPanier.jpg)
+
 
 
 ## Technologies :
