@@ -1,16 +1,16 @@
-import {getBasket, saveBasket, saveForm, basketEmpty, productWithdrawn} from './basket.js'; 
+import {getBasket, saveBasket, saveForm, basketEmpty, productWithdrawn, deleteProductInBasket} from './basket.js'; 
 
 let totalProductsQuantity = 0;
 let totalProductsPrice = 0;
 //Recovery of products saved in the local storage and call to the API to recover the missing information
 function displayProduct(){
 
-let productInStorage = getBasket();
+let basket = getBasket();
 
-if(productInStorage.length === 0){
+if(basket.length === 0){
     basketEmpty();
 }else{
-    for(let product of productInStorage){
+    for(let product of basket){
         fetch(`http://localhost:3000/api/products/${product.id}`)
             .then(res => res.json())
                 .then(data => {
@@ -44,28 +44,28 @@ if(productInStorage.length === 0){
                     //Total product price
                     totalProductsPrice += product.quantity * data.price;
                     document.getElementById("totalPrice").innerHTML = totalProductsPrice;
-
+                    
                     changeTotal();
                     deleteProduct();
-
+                    
                     function changeTotal(){
+                        let basket = getBasket();
                         let allInputQuantity = document.querySelectorAll('.itemQuantity');
                         allInputQuantity.forEach(input => {
                             input.addEventListener('change', e => {
-                                let productInStorage = getBasket();
+                                let targetProduct = e.target.closest("article");
+                                let foundTargetProduct = basket.find(product => product.id == targetProduct.getAttribute('data-id') && product.color == targetProduct.getAttribute('data-color'));
+                                foundTargetProduct.quantity = Number(input.value);  
+                                saveBasket(basket);
+                                window.location.reload();
 
-                                if (input.value < 1) {
-                                    input.value = 1;
-                                } else {
-                                    let targetProduct = e.target.closest("article");
-                                    let foundTargetProduct = productInStorage.find(product => product.id == targetProduct.getAttribute('data-id') && product.color == targetProduct.getAttribute('data-color'));
-                                    foundTargetProduct.quantity = Number(input.value);
-
-                                    saveBasket(productInStorage);
-                                };
-                                
+                                if (input.value <= 0) {
+                                    const indexProduct = basket.indexOf(foundTargetProduct);
+                                    basket.splice(indexProduct, 1);
+                                    saveBasket(basket);
+                                }; 
                                 let newTotalProduct = 0;
-                                for(let product of productInStorage){
+                                for(let product of basket){
                                     newTotalProduct += product.quantity;
                                 }
                                 //Total new quantity
@@ -83,26 +83,14 @@ if(productInStorage.length === 0){
 displayProduct();
 
 function deleteProduct(){
-    let productInStorage = getBasket();
-
     const deleteItem = document.querySelectorAll('.deleteItem');
           
     deleteItem.forEach(item => {
         item.addEventListener('click', () => {
-            let produtSelectedForDeletion = item.closest('article');
-            const foundProductToDelete = productInStorage.find(el => el.id === produtSelectedForDeletion.getAttribute('data-id') && el.color === produtSelectedForDeletion.getAttribute('data-color'));
-            const indexProduct = productInStorage.indexOf(foundProductToDelete);
-            productInStorage.splice(indexProduct, 1);
-            saveBasket(productInStorage);
-            produtSelectedForDeletion.style.display = "none";
-            productWithdrawn();
-            setTimeout(() => {
-                window.location.reload();
-            }, 200);
-            if(productInStorage.length === 0){
-                localStorage.clear();
-                basketEmpty();
-            }     
+            let target = item.closest('article');
+            deleteProductInBasket(target)
+            target.style.display = "none";
+            productWithdrawn();   
         }); 
     });
 };
@@ -234,14 +222,3 @@ function sendForm(formValue){
     });
 
 };      
-    
-
-
-
-                 
-
-
-
-
-
-

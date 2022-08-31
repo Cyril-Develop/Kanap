@@ -27,6 +27,21 @@ export function getBasket(){
     }
 };
 
+export function deleteProductInBasket(target){
+    let basket = getBasket();
+    productWithdrawn();
+    basket = basket.filter(p => p.id !== target.getAttribute('data-id') || p.color !== target.getAttribute('data-color'))
+    console.log(basket);
+     saveBasket(basket);
+     setTimeout(() => {
+        window.location.reload();
+    }, 200);
+    if(basket.length === 0){
+        localStorage.clear();
+        basketEmpty();
+    }     
+};
+
 export function addBasket(product) {
     let basket = getBasket();
     let foundProduct = basket.find(p => p.id == product.id && p.color == product.color)
@@ -39,7 +54,7 @@ export function addBasket(product) {
     saveBasket(basket)
 };
 
-//FOormulaire
+//Formulaire
 
 export function saveForm(formValue){
     localStorage.setItem('form', JSON.stringify(formValue));
