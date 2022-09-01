@@ -57,17 +57,15 @@ if(basket.length === 0){
                             input.addEventListener('change', e => {
                                 let targetProduct = e.target.closest("article");
                                 let foundTargetProduct = basket.find(product => product.id == targetProduct.getAttribute('data-id') && product.color == targetProduct.getAttribute('data-color'));
-                                foundTargetProduct.quantity = Number(input.value);  
+                                foundTargetProduct.quantity = Number(input.value); 
+                                saveBasket(basket); 
                                 
-
                                 if (input.value <= 0) {
                                     input.value = 1
-                                    // const indexProduct = basket.indexOf(foundTargetProduct);
-                                    // basket.splice(indexProduct, 1);
-                                    // targetProduct.style.display = "none";
                                     saveBasket(basket);
                                 }; 
-                                
+
+                                basket = getBasket();
                                 let newQuantite = [];
                                 let newPrice = [];
                                 console.log(newQuantite);
@@ -92,14 +90,12 @@ if(basket.length === 0){
                                 for(let i = 0; i < newQuantite.length; i++){
                                     totalProductsPrice += newQuantite[i] * newPrice[i];
                                 };
-
+                                
                                 //Total new quantity
                                 totalProductsQuantity = newTotalProduct;
                                 document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
                                 //Total new price
                                 document.getElementById("totalPrice").innerHTML = totalProductsPrice;
-
-                                saveBasket(basket);
                             })
                         });
                     }                   
@@ -138,7 +134,7 @@ let message = {
     address : 'Minimum 3 caractères, maximum 15 caractères. Les caractères spéciaux ne sont pas autorisés.',
     city : 'Minimum 3 caractères, maximum 15 caractères. Les chiffres et caractères spéciaux ne sont pas autorisés',
     email : 'Veuillez renseigner une adresse mail valide.'
-}
+};
 errorMessage.push(message);
 function inputNotValid(input, errorMsg, msg){
     errorMsg.innerHTML = msg;

@@ -3,7 +3,7 @@ const titleHomePage = document.querySelector('.titles');
 
 //Error message if the server is not on
 function showInfos(){
-    titleHomePage.innerHTML = `<h1>Vérifiez que le serveur soit allumé</h1>`
+    titleHomePage.innerHTML = `<h1>Vérifiez que le serveur soit allumé.</h1>`
 };
 showInfos();
 
