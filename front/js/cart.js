@@ -1,5 +1,6 @@
 import {getBasket, saveBasket, saveForm, basketEmpty, productWithdrawn, deleteProductInBasket} from './basket.js'; 
 
+let productApi = []
 let totalProductsQuantity = 0;
 let totalProductsPrice = 0;
 //Recovery of products saved in the local storage and call to the API to recover the missing information
@@ -44,11 +45,12 @@ if(basket.length === 0){
                     //Total product price
                     totalProductsPrice += product.quantity * data.price;
                     document.getElementById("totalPrice").innerHTML = totalProductsPrice;
-                    
-                    changeTotal();
+
+                    productApi.push(data);
+                    changeTotal(productApi);
                     deleteProduct();
                     
-                    function changeTotal(){
+                    function changeTotal(productApi){
                         let basket = getBasket();
                         let allInputQuantity = document.querySelectorAll('.itemQuantity');
                         allInputQuantity.forEach(input => {
@@ -56,24 +58,48 @@ if(basket.length === 0){
                                 let targetProduct = e.target.closest("article");
                                 let foundTargetProduct = basket.find(product => product.id == targetProduct.getAttribute('data-id') && product.color == targetProduct.getAttribute('data-color'));
                                 foundTargetProduct.quantity = Number(input.value);  
-                                saveBasket(basket);
-                                window.location.reload();
+                                
 
                                 if (input.value <= 0) {
-                                    const indexProduct = basket.indexOf(foundTargetProduct);
-                                    basket.splice(indexProduct, 1);
+                                    input.value = 1
+                                    // const indexProduct = basket.indexOf(foundTargetProduct);
+                                    // basket.splice(indexProduct, 1);
+                                    // targetProduct.style.display = "none";
                                     saveBasket(basket);
                                 }; 
-                                let newTotalProduct = 0;
-                                for(let product of basket){
-                                    newTotalProduct += product.quantity;
-                                }
+                                
+                                let newQuantite = [];
+                                let newPrice = [];
+                                console.log(newQuantite);
+                                console.log(newPrice);
+                                for(let j = 0; j < basket.length; j++){
+                                    if(basket[j].quantity <= 0){
+                                        basket[j].quantity = 1;
+                                    };
+                                    newQuantite.push(basket[j].quantity);
+                                };
+                                for(let i = 0; i < productApi.length; i++){                                
+                                    newPrice.push(productApi[i].price);
+                                };
+                                
+                                //Sum of all quantities
+                                const newTotalProduct = newQuantite.reduce((acc, x) => {
+                                    return acc + x;
+                                });
+
+                                //Quantity times price
+                                let totalProductsPrice = 0;
+                                for(let i = 0; i < newQuantite.length; i++){
+                                    totalProductsPrice += newQuantite[i] * newPrice[i];
+                                };
+
                                 //Total new quantity
                                 totalProductsQuantity = newTotalProduct;
                                 document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
                                 //Total new price
-                                totalProductsPrice = newTotalProduct * data.price;
                                 document.getElementById("totalPrice").innerHTML = totalProductsPrice;
+
+                                saveBasket(basket);
                             })
                         });
                     }                   
