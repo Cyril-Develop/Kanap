@@ -15,7 +15,7 @@ if(basket.length === 0){
             .then(res => res.json())
                 .then(data => {
                     let modelCard =
-                        `<article class="cart__item" data-id="${data._id}" data-color="${product.color}">
+                        `<article class="cart__item" data-id="${product.id}" data-color="${product.color}">
                             <div class="cart__item__img">
                             <img src="${data.imageUrl}" alt="Photographie d'un canapé ${data.name}">
                             </div>
