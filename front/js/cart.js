@@ -47,9 +47,9 @@ if(basket.length === 0){
                     document.getElementById("totalPrice").innerHTML = totalProductsPrice;
 
                     productApi.push(data);
-                    changeTotal(productApi);
                     deleteProduct();
-                    
+                    changeTotal(productApi);
+                      
                     function changeTotal(productApi){
                         let basket = getBasket();
                         let allInputQuantity = document.querySelectorAll('.itemQuantity');
@@ -61,18 +61,18 @@ if(basket.length === 0){
                                 saveBasket(basket); 
                                 
                                 if (input.value <= 0) {
-                                    input.value = 1
+                                    input.value = 1;
                                     saveBasket(basket);
                                 }; 
 
                                 basket = getBasket();
                                 let newQuantite = [];
                                 let newPrice = [];
-                                console.log(newQuantite);
-                                console.log(newPrice);
+
                                 for(let j = 0; j < basket.length; j++){
                                     if(basket[j].quantity <= 0){
                                         basket[j].quantity = 1;
+                                        saveBasket(basket);
                                     };
                                     newQuantite.push(basket[j].quantity);
                                 };
@@ -102,6 +102,7 @@ if(basket.length === 0){
             }
     )}
 }};
+
 displayProduct();
 
 function deleteProduct(){
@@ -242,5 +243,4 @@ function sendForm(formValue){
                 document.location.href =`confirmation.html?id=${data.orderId}`;
                 localStorage.clear();
     });
-
 };      

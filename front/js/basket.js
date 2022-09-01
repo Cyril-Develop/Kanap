@@ -29,6 +29,7 @@ export function getBasket(){
 
 export function deleteProductInBasket(target){
     let basket = getBasket();
+    console.log(basket);
     productWithdrawn();
     basket = basket.filter(p => p.id !== target.getAttribute('data-id') || p.color !== target.getAttribute('data-color'))
     console.log(basket);
