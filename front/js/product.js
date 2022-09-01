@@ -14,7 +14,6 @@ const getProductData = async function(){
     const response = await fetch(`http://localhost:3000/api/products/${productId}`);
     const data = await response.json();
     displayProduct(data);
-    console.log(data);
 };
 getProductData();
 
