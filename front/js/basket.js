@@ -6,11 +6,11 @@ export function basketEmpty(){
 export function productWithdrawn(){
     const showPopup = document.createElement('p');
     const body = document.querySelector('body');
-    showPopup.innerHTML = '<p>Produit retiré du panier</p>'
+    showPopup.innerHTML = '<p>Produit retiré du panier</p>';
     body.append(showPopup);
     showPopup.classList.add('popupAddToCart');
     setTimeout(() => {
-        showPopup.remove('popupAddToCart')
+        showPopup.remove('popupAddToCart');
     }, 1000);
 };
 
@@ -29,10 +29,8 @@ export function getBasket(){
 
 export function deleteProductInBasket(target){
     let basket = getBasket();
-    console.log(basket);
     productWithdrawn();
     basket = basket.filter(p => p.id !== target.getAttribute('data-id') || p.color !== target.getAttribute('data-color'))
-    console.log(basket);
      saveBasket(basket);
      setTimeout(() => {
         window.location.reload();
@@ -45,14 +43,14 @@ export function deleteProductInBasket(target){
 
 export function addBasket(product) {
     let basket = getBasket();
-    let foundProduct = basket.find(p => p.id == product.id && p.color == product.color)
+    let foundProduct = basket.find(p => p.id == product.id && p.color == product.color);
     if(foundProduct != undefined){
         let newQuantity = foundProduct.quantity + product.quantity;
-        foundProduct.quantity = newQuantity
+        foundProduct.quantity = newQuantity;
     }else{
         basket.push(product);
     }
-    saveBasket(basket)
+    saveBasket(basket);
 };
 
 //Formulaire

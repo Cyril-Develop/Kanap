@@ -12,9 +12,14 @@ if(basket.length === 0){
     basketEmpty();
 }else{
     for(let product of basket){
-        fetch(`http://localhost:3000/api/products/${product.id}`)
-            .then(res => res.json())
-                .then(data => {
+        fetch(`http://localhost:3000/api/products/${product.id}`) 
+        .then(res => {
+            if(!res.ok){
+                console.log('Retour du serveur : ', res.status);
+                document.querySelector('.cartAndFormContainer h1').innerHTML = 'Nous ne parvenons pas à afficher cette page...';
+                document.querySelector('.cart').style.display = 'none';
+            } else {
+                res.json().then(data => {
                     let modelCard =
                         `<article class="cart__item" data-id="${product.id}" data-color="${product.color}">
                             <div class="cart__item__img">
@@ -37,7 +42,7 @@ if(basket.length === 0){
                             </div>
                             </div>
                         </article>`;
-                    document.querySelector('#cart__items').innerHTML += modelCard; 
+                document.querySelector('#cart__items').innerHTML += modelCard;    
 
                     //Total product quantity
                     totalProductsQuantity += product.quantity;
@@ -47,8 +52,9 @@ if(basket.length === 0){
                     document.getElementById("totalPrice").innerHTML = totalProductsPrice;
 
                     productApi.push(data);
-                    deleteProduct();
                     changeTotal(productApi);
+
+                    deleteProduct();
                       
                     function changeTotal(productApi){
                         let basket = getBasket();
@@ -66,29 +72,30 @@ if(basket.length === 0){
                                 }; 
 
                                 basket = getBasket();
-                                let newQuantite = [];
-                                let newPrice = [];
+                                let newQuantity = [];
+                                let newPrice = [];   
 
                                 for(let j = 0; j < basket.length; j++){
                                     if(basket[j].quantity <= 0){
                                         basket[j].quantity = 1;
                                         saveBasket(basket);
                                     };
-                                    newQuantite.push(basket[j].quantity);
+                                    newQuantity.push(basket[j].quantity);
+                                    saveBasket(basket);
                                 };
                                 for(let i = 0; i < productApi.length; i++){                                
                                     newPrice.push(productApi[i].price);
                                 };
                                 
                                 //Sum of all quantities
-                                const newTotalProduct = newQuantite.reduce((acc, x) => {
+                                const newTotalProduct = newQuantity.reduce((acc, x) => {
                                     return acc + x;
                                 });
 
                                 //Quantity times price
                                 let totalProductsPrice = 0;
-                                for(let i = 0; i < newQuantite.length; i++){
-                                    totalProductsPrice += newQuantite[i] * newPrice[i];
+                                for(let i = 0; i < newQuantity.length; i++){
+                                    totalProductsPrice += newQuantity[i] * newPrice[i];
                                 };
                                 
                                 //Total new quantity
@@ -97,12 +104,14 @@ if(basket.length === 0){
                                 //Total new price
                                 document.getElementById("totalPrice").innerHTML = totalProductsPrice;
                             })
-                        });
-                    }                   
+                        })
+                    }
+                    })
+                }
             }
-    )}
+        )
+    }
 }};
-
 displayProduct();
 
 function deleteProduct(){

@@ -18,7 +18,7 @@ fetch('http://localhost:3000/api/products')
                 showData(data);
             })
         } else {
-            console.log('Retour du serveur : ', response.status);
+            console.log('Retour du serveur : ', res.status);
             showInfos();
             titleHomePage.innerHTML = `<h1>Le serveur ne répond pas...</h1>`
         }

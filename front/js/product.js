@@ -9,13 +9,19 @@ const btnAddToCart = document.getElementById('addToCart');
 const blocItemContent = document.querySelector('.item__content__settings');
 
 //retrieval of product information via id
-const getProductData = async function(){
-    const productId = new URL(location.href).searchParams.get('id');
-    const response = await fetch(`http://localhost:3000/api/products/${productId}`);
-    const data = await response.json();
-    displayProduct(data);
-};
-getProductData();
+const productId = new URL(location.href).searchParams.get('id');
+fetch(`http://localhost:3000/api/products/${productId}`)
+    .then(res => {
+        if (res.ok) {
+            res.json().then(data => {
+                displayProduct(data);
+            })
+        } else {
+            console.log('Retour du serveur : ', res.status);
+            const infoError = document.querySelector('.item');
+            infoError.innerHTML = `<h1>Le produit est introuvable...</h1>`;
+        }
+    });
 
 //Display info in the page
 function displayProduct(data){
@@ -76,3 +82,6 @@ function showError(infoError){
         infoError.remove('showError')
     }, 4000);
 };
+
+
+
