@@ -1,8 +1,10 @@
 import {getBasket, saveBasket, saveForm, basketEmpty, productWithdrawn, deleteProductInBasket} from './basket.js'; 
 
-let productApi = []
+let productApi = [];
+let productStorage = [];
 let totalProductsQuantity = 0;
 let totalProductsPrice = 0;
+
 //Recovery of products saved in the local storage and call to the API to recover the missing information
 function displayProduct(){
 
@@ -20,98 +22,118 @@ if(basket.length === 0){
                 document.querySelector('.cart').style.display = 'none';
             } else {
                 res.json().then(data => {
-                    let modelCard =
-                        `<article class="cart__item" data-id="${product.id}" data-color="${product.color}">
-                            <div class="cart__item__img">
-                            <img src="${data.imageUrl}" alt="Photographie d'un canapé ${data.name}">
-                            </div>
-                            <div class="cart__item__content">
-                            <div class="cart__item__content__description">
-                                <h2>${data.name}</h2>
-                                <p>${product.color}</p>
-                                <p class="price">${data.price} €</p>
-                            </div>
-                            <div class="cart__item__content__settings">
-                                <div class="cart__item__content__settings__quantity">
-                                <p>Qté : </p>
-                                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantity}">
-                                </div>
-                                <div class="cart__item__content__settings__delete">
-                                <p class="deleteItem">Supprimer</p>
-                                </div>
-                            </div>
-                            </div>
-                        </article>`;
-                document.querySelector('#cart__items').innerHTML += modelCard;    
-
-                    //Total product quantity
-                    totalProductsQuantity += product.quantity;
-                    document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
-                    //Total product price
-                    totalProductsPrice += product.quantity * data.price;
-                    document.getElementById("totalPrice").innerHTML = totalProductsPrice;
-
                     productApi.push(data);
-                    changeTotal(productApi);
-
-                    deleteProduct();
-                      
-                    function changeTotal(productApi){
-                        let basket = getBasket();
-                        let allInputQuantity = document.querySelectorAll('.itemQuantity');
-                        allInputQuantity.forEach(input => {
-                            input.addEventListener('change', e => {
-                                let targetProduct = e.target.closest("article");
-                                let foundTargetProduct = basket.find(product => product.id == targetProduct.getAttribute('data-id') && product.color == targetProduct.getAttribute('data-color'));
-                                foundTargetProduct.quantity = Number(input.value); 
-                                saveBasket(basket); 
-                                
-                                if (input.value <= 0) {
-                                    input.value = 1;
-                                    saveBasket(basket);
-                                }; 
-
-                                basket = getBasket();
-                                let newQuantity = [];
-                                let newPrice = [];   
-
-                                for(let j = 0; j < basket.length; j++){
-                                    if(basket[j].quantity <= 0){
-                                        basket[j].quantity = 1;
-                                        saveBasket(basket);
-                                    };
-                                    newQuantity.push(basket[j].quantity);
-                                    saveBasket(basket);
-                                };
-                                for(let i = 0; i < productApi.length; i++){                                
-                                    newPrice.push(productApi[i].price);
-                                };
-                                
-                                //Sum of all quantities
-                                const newTotalProduct = newQuantity.reduce((acc, x) => {
-                                    return acc + x;
-                                });
-
-                                //Quantity times price
-                                let totalProductsPrice = 0;
-                                for(let i = 0; i < newQuantity.length; i++){
-                                    totalProductsPrice += newQuantity[i] * newPrice[i];
-                                };
-                                
-                                //Total new quantity
-                                totalProductsQuantity = newTotalProduct;
-                                document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
-                                //Total new price
-                                document.getElementById("totalPrice").innerHTML = totalProductsPrice;
-                            })
-                        })
-                    }
-                    })
-                }
-            }
-        )
-    }
+                    productStorage.push(product);
+                    //Sorts products according id
+                    productApi.sort(function (a, b) {
+                        if (a._id < b._id) return -1;
+                        if (a._id > b._id) return 1;
+                        return 0;                        
+                    });
+                    productStorage.sort(function (a, b) {
+                        if (a.id < b.id) return -1;
+                        if (a.id > b.id) return 1;
+                        return 0;                        
+                    });
+                    
+                    if(productApi.length === basket.length){
+                        showDetails(productApi, productStorage)
+                    }               
+                })
+            }}
+    )}
 }};
+
+function showDetails(productApi, productStorage){
+    for(let i = 0; i < productApi.length; i++){
+
+        let modelCard =
+            `<article class="cart__item" data-id="${productStorage[i].id}" data-color="${productStorage[i].color}">
+                <div class="cart__item__img">
+                <img src="${productApi[i].imageUrl}" alt="Photographie d'un canapé ">
+                </div>
+                <div class="cart__item__content">
+                <div class="cart__item__content__description">
+                    <h2>${productApi[i].name}</h2>
+                    <p>${productStorage[i].color}</p>
+                    <p class="price">${productApi[i].price} €</p>
+                </div>
+                <div class="cart__item__content__settings">
+                    <div class="cart__item__content__settings__quantity">
+                    <p>Qté : </p>
+                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productStorage[i].quantity}">
+                    </div>
+                    <div class="cart__item__content__settings__delete">
+                    <p class="deleteItem">Supprimer</p>
+                    </div>
+                </div>
+                </div>
+            </article>`;
+        document.querySelector('#cart__items').innerHTML += modelCard; 
+  
+            //Total product quantity
+            totalProductsQuantity += productStorage[i].quantity;
+            document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
+            //Total product price
+            totalProductsPrice += productStorage[i].quantity * productApi[i].price;
+            document.getElementById("totalPrice").innerHTML = totalProductsPrice;
+    
+            changeTotal(productApi);
+
+            deleteProduct();
+                
+            function changeTotal(productApi){
+                let basket = getBasket();
+                let allInputQuantity = document.querySelectorAll('.itemQuantity');
+                allInputQuantity.forEach(input => {
+                    input.addEventListener('change', e => {
+                        let targetProduct = e.target.closest("article");
+                        let foundTargetProduct = basket.find(product => product.id == targetProduct.getAttribute('data-id') && product.color == targetProduct.getAttribute('data-color'));
+                        foundTargetProduct.quantity = Number(input.value); 
+                        saveBasket(basket); 
+                        
+                        if (input.value <= 0) {
+                            input.value = 1;
+                            saveBasket(basket);
+                        }; 
+
+                        basket = getBasket();
+                        let newQuantity = [];
+                        let newPrice = [];   
+
+                        for(let j = 0; j < basket.length; j++){
+                            if(basket[j].quantity <= 0){
+                                basket[j].quantity = 1;
+                                saveBasket(basket);
+                            };
+                            newQuantity.push(basket[j].quantity);
+                            saveBasket(basket);
+                        };
+                        for(let i = 0; i < productApi.length; i++){                                
+                            newPrice.push(productApi[i].price);
+                        };
+                        
+                        //Sum of all quantities
+                        const newTotalProduct = newQuantity.reduce((acc, x) => {
+                            return acc + x;
+                        });
+
+                        //Quantity times price
+                        let totalProductsPrice = 0;
+                        for(let i = 0; i < newQuantity.length; i++){
+                            totalProductsPrice += newQuantity[i] * newPrice[i];
+                        };
+                        
+                        //Total new quantity
+                        totalProductsQuantity = newTotalProduct;
+                        document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
+                        //Total new price
+                        document.getElementById("totalPrice").innerHTML = totalProductsPrice;
+                    })
+                })
+            }
+    }
+};
 displayProduct();
 
 function deleteProduct(){
