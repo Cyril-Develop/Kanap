@@ -43,7 +43,6 @@ export function deleteProductInBasket(target){
 
 export function addBasket(product) {
     let basket = getBasket();
-    console.log(basket);
     let foundProduct = basket.find(p => p.id == product.id && p.color == product.color);
     if(foundProduct != undefined){
         let newQuantity = foundProduct.quantity + product.quantity;
@@ -62,16 +61,6 @@ export function addBasket(product) {
       });
     saveBasket(basket);
 };
-
-export function sortProduct(arr, value){
-    arr.sort(function (a, b) {
-        if (a.value < b.value) return -1;
-        if (a.value > b.value) return 1;
-        return 0;                        
-    });
-
-}
-
 //Formulaire
 
 export function saveForm(formValue){
