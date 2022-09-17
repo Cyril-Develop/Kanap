@@ -9,7 +9,7 @@ const btnAddToCart = document.getElementById('addToCart');
 const blocItemContent = document.querySelector('.item__content__settings');
 
 //retrieval of product information via id
-const productId = new URL(location.href).searchParams.get('id');
+const productId = new URL(location).searchParams.get('id');
 fetch(`http://localhost:3000/api/products/${productId}`)
     .then(res => {
         if (res.ok) {
