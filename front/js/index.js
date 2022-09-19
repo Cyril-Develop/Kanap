@@ -27,13 +27,25 @@ fetch('http://localhost:3000/api/products')
 //We use the information retrieved via the API to display all the products
 function showData(products) {
     for(let product of products) {
-        let productList =   `<a href="./product.html?id=${product._id}">
-                                <article>
-                                <img src="${product.imageUrl}" alt="${product.altTxt}">
-                                <h3 class="productName">${product.name}</h3>
-                                <p class="productDescription">${product.description}</p>
-                                </article>
-                            </a>`;       
-        document.querySelector('#items').innerHTML += productList; 
+
+        let productLink = document.createElement('a');
+        document.querySelector('.items').appendChild(productLink);
+        productLink.href = `./product.html?id=${product._id}`;
+
+        let productArticle = document.createElement('article');
+        productLink.appendChild(productArticle);
+
+        let productImg = document.createElement('img');
+        productArticle.appendChild(productImg);
+        productImg.src = `${product.imageUrl}`; 
+        productImg.alt = `${product.altTxt}`;
+
+        let productName = document.createElement('h3');
+        productArticle.appendChild(productName);
+        productName.innerHTML = `${product.name}`;
+
+        let productDescription = document.createElement("p");
+        productArticle.appendChild(productDescription);
+        productDescription.innerHTML = `${product.description}`;
     }
 };
