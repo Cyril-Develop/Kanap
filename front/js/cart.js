@@ -73,10 +73,9 @@ function showDetails(productApi, productStorage){
         productItemContentTitlePrice.appendChild(productTitle);
         productTitle.innerHTML = `${productApi[i].name}`;
 
-        let productColor = document.createElement("p");
+        let productColor = document.createElement("span");
         productTitle.appendChild(productColor);
-        productColor.innerHTML = `${productStorage[i].color}`;
-        //productColor.style.fontSize = "20px";
+        productColor.innerHTML = ` (${productStorage[i].color})`;
 
         let productPrice = document.createElement("p");
         productItemContentTitlePrice.appendChild(productPrice);
@@ -107,7 +106,7 @@ function showDetails(productApi, productStorage){
         productItemContentSettings.appendChild(productItemContentSettingsDelete);
         productItemContentSettingsDelete.className = "cart__item__content__settings__delete";
 
-        let productSupprimer = document.createElement("p");
+        let productSupprimer = document.createElement("button");
         productItemContentSettingsDelete.appendChild(productSupprimer);
         productSupprimer.className = "deleteItem";
         productSupprimer.innerHTML = "Supprimer";
@@ -117,7 +116,7 @@ function showDetails(productApi, productStorage){
         document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
         //Total product price
         totalProductsPrice += productStorage[i].quantity * productApi[i].price;
-        document.getElementById("totalPrice").innerHTML = totalProductsPrice;
+        document.getElementById("totalPrice").innerHTML = `${totalProductsPrice} €`;
 
         changeTotal(productApi);
 
@@ -169,7 +168,7 @@ function showDetails(productApi, productStorage){
                     totalProductsQuantity = newTotalProduct;
                     document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
                     //Total new price
-                    document.getElementById("totalPrice").innerHTML = totalProductsPrice;
+                    document.getElementById("totalPrice").innerHTML = `${totalProductsPrice} €`;
                 })
             })
         }

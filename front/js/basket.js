@@ -1,5 +1,5 @@
 export function basketEmpty(){
-    document.querySelector('.cartAndFormContainer h1').innerHTML = 'Votre panier est vide.';
+    document.querySelector('.cart_empty').style.display = 'block';
     document.querySelector('.cart').style.display = 'none';
 };
 
@@ -8,9 +8,9 @@ export function productWithdrawn(){
     const body = document.querySelector('body');
     showPopup.innerHTML = '<p>Produit retiré du panier</p>';
     body.append(showPopup);
-    showPopup.classList.add('popupAddToCart');
+    showPopup.classList.add('popupRemoveFromCart');
     setTimeout(() => {
-        showPopup.remove('popupAddToCart');
+        showPopup.remove('popupRemoveFromCart');
     }, 1000);
 };
 

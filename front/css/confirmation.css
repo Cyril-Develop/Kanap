@@ -1,11 +1,13 @@
 /**************/
-/*Confirmation*/
+/*CONFIRMATION*/
 /**************/
 .confirmation {
     display: flex;
     justify-content: center;
-    margin-top: 85px;
-    margin-bottom: 85px;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+    min-height:  200px;
 }
 
 .confirmation p {
@@ -14,5 +16,5 @@
     text-align: center;
     font-weight: 500;
     padding: 30px;
-    border-radius: 25px;
+    border-radius: 10px;
 }

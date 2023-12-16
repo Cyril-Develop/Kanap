@@ -82,6 +82,3 @@ function showError(infoError){
         infoError.remove('showError')
     }, 4000);
 };
-
-
-

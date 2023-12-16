@@ -1,21 +1,14 @@
 const mainTitle = document.querySelector('.titles h1');
 const titleHomePage = document.querySelector('.titles');
-
-//Error message if the server is not on
-function showInfos(){
-    titleHomePage.innerHTML = `<h1>Vérifiez que le serveur soit allumé.</h1>`
-};
-showInfos();
+const loader = document.getElementById('loader');
 
 //Call to the API to retrieve all products
 fetch('http://localhost:3000/api/products')
-    .then(res => {
-        if(res.ok){
-            res.json().then(data => {
-                showInfos();
-                titleHomePage.innerHTML = ` <h1>Nos produits</h1>
-                                    <h2>Une gamme d'articles exclusifs</h2>`;
-                showData(data);
+.then(res => {
+    if(res.ok){
+        res.json().then(data => {
+            hideLoader();
+            showData(data);
             })
         } else {
             console.log('Retour du serveur : ', res.status);
@@ -48,4 +41,8 @@ function showData(products) {
         productArticle.appendChild(productDescription);
         productDescription.innerHTML = `${product.description}`;
     }
+};
+
+function hideLoader() {
+    loader.style.display = 'none';
 };
