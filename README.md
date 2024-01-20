@@ -1,4 +1,4 @@
-![formation](/front/images/screenshot/openClassRooms.png)
+![formation](/client/images/screenshot/openClassRooms.png)
 
 # Formation développeur web 
 
@@ -8,9 +8,9 @@
 
 
 
-![screenshot du site](front/images/screenshot/screenshotAccueil.jpg)  
+![screenshot du site](client/images/screenshot/screenshotAccueil.jpg)  
 
-![screenshot du site](front/images/screenshot/screenshotPanier.jpg)
+![screenshot du site](client/images/screenshot/screenshotPanier.jpg)
 
 
 
