@@ -3,15 +3,26 @@ export function basketEmpty(){
     document.querySelector('.cart').style.display = 'none';
 };
 
-export function productWithdrawn(){
+export function productRemoved(){
     const showPopup = document.createElement('p');
     const body = document.querySelector('body');
     showPopup.innerHTML = '<p>Produit retiré du panier</p>';
     body.append(showPopup);
-    showPopup.classList.add('popupRemoveFromCart');
+    showPopup.classList.add('popup');
     setTimeout(() => {
-        showPopup.remove('popupRemoveFromCart');
-    }, 1000);
+        showPopup.remove('popup');
+    }, 2000);
+};
+
+export function popup(message){
+    const showPopup = document.createElement('p');
+    const body = document.querySelector('body');
+    showPopup.innerHTML = `<p>${message}</p>`;
+    body.append(showPopup);
+    showPopup.classList.add('popup');
+    setTimeout(() => {
+        showPopup.remove('popup');
+    }, 2000);
 };
 
 export function saveBasket(basket){
@@ -27,7 +38,7 @@ export function getBasket(){
     }
 };
 
-export function deleteProductInBasket(target) {
+export function modifyQuantityAndPrice(target) {
     // Quantité et prix global du panier
     const productsQuantity = document.querySelector("#totalQuantity");
     const productsPrice = document.querySelector("#totalPrice");
@@ -36,16 +47,13 @@ export function deleteProductInBasket(target) {
     let productsPriceValue = productsPrice.textContent.replace("€", "");
 
     // Quantité et prix du produit supprimé
-    const productPriceDeleted = target
-        .querySelector(".cart__item__content__description p")
-        .textContent.replace("€", "");
+    const productPriceDeleted = target.querySelector(".cart__item__content__description p").textContent.replace("€", "");       
     const productQuantityDeleted = target.querySelector(".itemQuantity").value;
 
     // Calcul de la quantité et du prix global du panier
     let newQuantity = productsQuantityValue - productQuantityDeleted;
-    let newPrice =
-        productsPriceValue - productPriceDeleted * productQuantityDeleted;
-
+    let newPrice = productsPriceValue - productPriceDeleted * productQuantityDeleted;
+        
     // Affichage de la quantité et du prix global du panier
     productsQuantity.textContent = newQuantity;
     productsPrice.textContent = newPrice + "€";

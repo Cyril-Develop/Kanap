@@ -3,8 +3,8 @@ import {
     saveBasket,
     saveForm,
     basketEmpty,
-    productWithdrawn,
-    deleteProductInBasket,
+    popup,
+    modifyQuantityAndPrice,
 } from "./basket.js";
 
 let productApi = [];
@@ -175,29 +175,21 @@ function changeTotal(productApi) {
                 newQuantity.push(basket[j].quantity);
                 saveBasket(basket);
             }
-            for (let i = 0; i < productApi.length; i++) {
-                newPrice.push(productApi[i].price);
-            }
-
+            for (let i = 0; i < productApi.length; i++) newPrice.push(productApi[i].price);
+                
             //Sum of all quantities
-            const newTotalProduct = newQuantity.reduce((acc, x) => {
-                return acc + x;
-            });
-
+            const newTotalProduct = newQuantity.reduce((acc, x) => acc + x);
+              
             //Quantity times price
             let totalProductsPrice = 0;
-            for (let i = 0; i < newQuantity.length; i++) {
-                totalProductsPrice += newQuantity[i] * newPrice[i];
-            }
+            for (let i = 0; i < newQuantity.length; i++) totalProductsPrice += newQuantity[i] * newPrice[i];
 
             //Total new quantity
             totalProductsQuantity = newTotalProduct;
-            document.getElementById("totalQuantity").innerHTML =
-                totalProductsQuantity;
+            document.getElementById("totalQuantity").innerHTML = totalProductsQuantity;
+                
             //Total new price
-            document.getElementById(
-                "totalPrice"
-            ).innerHTML = `${totalProductsPrice} €`;
+            document.getElementById("totalPrice").innerHTML = `${totalProductsPrice} €`;
         });
     });
 }
@@ -208,39 +200,26 @@ function deleteProduct(productApi){
     
     deleteItem.forEach(item => {
         item.addEventListener('click', () => {
-            productWithdrawn();
+            popup('Produit retiré du panier');
             let target = item.closest('article');
             target.style.display = 'none';
-            deleteProductInBasket(target);
+            modifyQuantityAndPrice(target);
 
             // Récupérer l'index de l'élément dans le panier
-            const indexInBasket = basket.findIndex(
-                (p) =>
-                    p.id === target.getAttribute("data-id") &&
-                    p.color === target.getAttribute("data-color")
-            );
-
+            const indexInBasket = basket.findIndex((p) => p.id === target.getAttribute("data-id") && p.color === target.getAttribute("data-color"));
+                
             if (indexInBasket !== -1) {
-                // Retirer l'élément du panier
                 basket.splice(indexInBasket, 1);
-
-                // Retirer l'élément correspondant de productApi
                 productApi.splice(indexInBasket, 1);
 
-                // Sauvegarder le panier
                 saveBasket(basket);
-
                 changeTotal(productApi);
 
-                // Si le panier est vide, afficher le message "panier vide"
-                if (basket.length === 0) {
-                    basketEmpty();
-                };
+                if (basket.length === 0) basketEmpty();
             }
         }); 
     });
 };
-
 
 //Message sent if the input is empty when the form is sent
 function inputEmpty(errorMsg, input) {

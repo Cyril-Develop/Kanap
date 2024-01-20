@@ -1,4 +1,4 @@
-import {addBasket} from './basket.js'; 
+import {addBasket, popup} from './basket.js'; 
 
 const itemImg = document.querySelector('.item__img');
 const itemTitle = document.querySelector('#title');
@@ -57,22 +57,11 @@ function getchosenProducts(data){
             } else {
                 const productSelected = new optionsProductSelected(data._id, itemQuantity, itemcolors.value);  
                 addBasket(productSelected);
-                productAdded();
+                popup('Produit ajouté au panier');
             };    
     });
 };
 
-//Popup when adding to cart
-function productAdded(){
-    const body = document.querySelector('body');
-    const showPopup = document.createElement('p');
-    showPopup.innerHTML = '<p>Produit ajouté au panier</p>'
-    body.append(showPopup);
-    showPopup.classList.add('popupAddToCart');
-    setTimeout(() => {
-        showPopup.remove('popupAddToCart')
-    }, 2000);
-};
 //Popup if the quantity is not at least equal to 1
 const infoError = document.createElement('p');
 function showError(infoError){

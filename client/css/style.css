@@ -171,6 +171,31 @@ footer {
 }
 
 /********/
+/*POPUP*/
+/*******/
+.popup{
+	position: fixed;
+	top: 10px;
+	left: 50%;
+	padding: 15px;
+	text-align: center;
+	font-size: 1rem;
+	letter-spacing: 1px;
+	border-radius: 10px;
+	background-color: green;
+	color: white;
+	animation : appear 0.2s ease-in-out forwards;
+}
+@keyframes appear {
+	from{
+		transform: translate(-50%, -20px);
+	}
+	to{
+		transform: translate(-50%, 0);
+	}
+}
+
+/********/
 /*LOADER*/
 /********/
 #loader{
