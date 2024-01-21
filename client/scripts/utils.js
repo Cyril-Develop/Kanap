@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000/api";
+export const BASE_URL = "https://cyril-develop.fr/kanap/api";
 
 export function basketEmpty(){
     document.querySelector('.cart_empty').style.display = 'block';
