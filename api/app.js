@@ -12,7 +12,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/kanap/api/images', express.static(path.join(__dirname, 'images')));
 app.use(express.static('images'));
 
 app.use(express.urlencoded({extended: true}));
