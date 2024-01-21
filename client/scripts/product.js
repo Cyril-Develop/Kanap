@@ -1,4 +1,4 @@
-import {addBasket, popup} from './utils.js'; 
+import {addBasket, popup, BASE_URL} from './utils.js'; 
 
 const itemImg = document.querySelector('.item__img');
 const itemTitle = document.querySelector('#title');
@@ -10,7 +10,7 @@ const blocItemContent = document.querySelector('.item__content__settings');
 
 //retrieval of product information via id
 const productId = new URL(location).searchParams.get('id');
-fetch(`http://localhost:3000/api/products/${productId}`)
+fetch(`${BASE_URL}/products/${productId}`)
     .then(res => {
         if (res.ok) {
             res.json().then(data => {

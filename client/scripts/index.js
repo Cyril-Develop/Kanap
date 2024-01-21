@@ -1,6 +1,5 @@
 import { BASE_URL } from "./utils.js";
 
-//const mainTitle = document.querySelector('.titles h1');
 const titleHomePage = document.querySelector('.titles');
 const loader = document.getElementById('loader');
 
