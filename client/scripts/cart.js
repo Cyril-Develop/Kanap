@@ -5,7 +5,8 @@ import {
     basketEmpty,
     popup,
     modifyQuantityAndPrice,
-} from "./basket.js";
+    BASE_URL,
+} from "./utils.js";
 
 let productApi = [];
 let productStorage = [];
@@ -20,7 +21,7 @@ function displayProduct() {
         basketEmpty();
     } else {
         for (let product of basket) {
-            fetch(`http://localhost:3000/api/products/${product.id}`).then(
+            fetch(`${BASE_URL}/products/${product.id}`).then(
                 (res) => {
                     if (!res.ok) {
                         console.log("Retour du serveur : ", res.status);
@@ -386,7 +387,7 @@ function sendForm(formValue) {
         },
     };
 
-    fetch("http://localhost:3000/api/products/order", options)
+    fetch(`${BASE_URL}/products/order`, options)
         .then((response) => response.json())
         .then((data) => {
             document.location.href = `confirmation.html?id=${data.orderId}`;

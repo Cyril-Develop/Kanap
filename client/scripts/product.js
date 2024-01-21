@@ -1,4 +1,4 @@
-import {addBasket, popup} from './basket.js'; 
+import {addBasket, popup} from './utils.js'; 
 
 const itemImg = document.querySelector('.item__img');
 const itemTitle = document.querySelector('#title');

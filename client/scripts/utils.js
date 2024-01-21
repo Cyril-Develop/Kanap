@@ -1,3 +1,5 @@
+export const BASE_URL = "http://localhost:3000/api";
+
 export function basketEmpty(){
     document.querySelector('.cart_empty').style.display = 'block';
     document.querySelector('.cart').style.display = 'none';

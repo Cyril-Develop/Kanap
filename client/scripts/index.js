@@ -1,9 +1,11 @@
-const mainTitle = document.querySelector('.titles h1');
+import { BASE_URL } from "./utils.js";
+
+//const mainTitle = document.querySelector('.titles h1');
 const titleHomePage = document.querySelector('.titles');
 const loader = document.getElementById('loader');
 
 //Call to the API to retrieve all products
-fetch('http://localhost:3000/api/products')
+fetch(`${BASE_URL}/products/`)
 .then(res => {
     if(res.ok){
         res.json().then(data => {
