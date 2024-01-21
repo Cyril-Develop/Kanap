@@ -22,6 +22,9 @@ fetch(`${BASE_URL}/products/`)
 function showData(products) {
     for(let product of products) {
 
+        console.log(product.imageUrl);
+        console.log(product.name);
+
         let productLink = document.createElement('a');
         document.querySelector('.items').appendChild(productLink);
         productLink.href = `./product.html?id=${product._id}`;
