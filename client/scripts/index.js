@@ -23,7 +23,7 @@ function showData(products) {
     for(let product of products) {
         let productLink = document.createElement('a');
         document.querySelector('.items').appendChild(productLink);
-        productLink.href = `./product.html?id=${product._id}`;
+        productLink.href = `./pages/product.html?id=${product._id}`;
 
         let productArticle = document.createElement('article');
         productLink.appendChild(productArticle);

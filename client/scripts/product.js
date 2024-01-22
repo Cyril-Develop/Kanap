@@ -6,7 +6,7 @@ const itemPrice = document.querySelector('#price');
 const itemDescription = document.querySelector('#description');
 const itemcolors = document.querySelector('#colors');
 const btnAddToCart = document.getElementById('addToCart');
-const blocItemContent = document.querySelector('.item__content__settings');
+const blocItemContent = document.querySelector('.item__content__settings__quantity');
 
 //retrieval of product information via id
 const productId = new URL(location).searchParams.get('id');
@@ -69,5 +69,5 @@ function showError(infoError){
     infoError.classList.add('showError');
     setTimeout(() => {
         infoError.remove('showError')
-    }, 4000);
+    }, 2000);
 };

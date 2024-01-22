@@ -18,11 +18,11 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 .item__content {
 	width: 100%;
-	color: white;
+	color: var(--secondary-color);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -40,9 +40,6 @@
     padding-bottom: 1rem;
 	border-bottom: 1px solid white;
 }
-.item__content__settings{
-    position: relative;
-}
 .item__content__description {
 	display: flex;
 	flex-direction: column;
@@ -53,11 +50,9 @@
 }
 /*CLASS JS*/
 .showError{
-    position: absolute;
-	font-weight: 600;
-	font-size: 1rem;
-    bottom: -1.5rem;
-	color: crimson;
+	position: absolute;
+	font-size: clamp(12px, 1.5vw, 14px);
+	color: red;
 }
 
 /**************/
@@ -80,16 +75,13 @@
 	justify-content: center;
 }
 .item__content__addButton button {
-	font-size: 22px;
-	border-radius: 10px;
-	border: 0;
+	font-size: clamp(1.2rem, 1.2vw, 1.4rem);
+	border-radius: 5px;
+	border: none;
 	background-color: var(--secondary-color);
 	color: white;
-	padding: 18px 28px;
+	padding: 15px 25px;
 	cursor: pointer;
-}
-.item__content__addButton button:hover {
-	box-shadow: inset 1px 2px 2px #000000, inset -1px -2px 2px #aba7a7;
 }
 
 /***************/
@@ -101,12 +93,15 @@
         flex-direction: column;
         align-items: center;
     }
+	.item {
+        padding: 1rem;
+    }
 }
 
 @media (max-width: 500px) {
 	.item {
         gap: 1rem;
-        padding: 1rem;
+        padding: 1rem 1rem .5rem;
     }
     .item__content{
         gap: 1rem;

@@ -49,7 +49,7 @@ export function modifyQuantityAndPrice(target) {
     let productsPriceValue = productsPrice.textContent.replace("€", "");
 
     // Quantité et prix du produit supprimé
-    const productPriceDeleted = target.querySelector(".cart__item__content__description p").textContent.replace("€", "");       
+    const productPriceDeleted = target.querySelector(".cart__item__content__description p span").textContent.replace("€", "");       
     const productQuantityDeleted = target.querySelector(".itemQuantity").value;
 
     // Calcul de la quantité et du prix global du panier

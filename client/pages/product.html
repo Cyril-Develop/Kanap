@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title>Nom du produit</title>
+    <title>Produit</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Plateforme incroyable de e-commerce">
@@ -17,24 +17,24 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Styles -->
-    <link href="/client/css/style.css" rel="stylesheet"/>
-    <link href="/client/css/product.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+    <link href="../css/product.css" rel="stylesheet"/>
   </head>
   <body>
         <!-- Header -->
         <header>
             <div class="menu">
-                <a href="./index.html">
+                <a href="../index.html">
                     <img class="logo" src="/client/images/logo.png" alt="Logo de l'entreprise">
                 </a>
                 <nav>
                     <ul>
-                        <li><a href="./index.html">Accueil</a></li>
+                        <li><a href="../index.html">Accueil</a></li>
                         <li><a href="./cart.html">Panier</a></li>
                     </ul>
               </nav>
             </div>
-            <img class="banner" src="/client/images/banniere.jpg" alt="Bannière">
+            <img class="banner" src="../images/banniere.jpg" alt="Bannière">
         </header>
         <!-- Main -->
         <main>
@@ -51,13 +51,13 @@
                     </div>
                     <div class="item__content__settings">
                         <div class="item__content__settings__color">
-                            <label for="color-select">Choisir une couleur :</label>
-                            <select name="color-select" id="colors"></select>
+                            <label for="colors">Choisir une couleur :</label>
+                            <select name="colors" id="colors"></select>
                         </div>
 
                         <div class="item__content__settings__quantity">
-                            <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
-                            <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
+                            <label for="quantity">Nombre d'article(s) (1-100) :</label>
+                            <input type="number" name="quantity" min="1" max="100" value="0" id="quantity">
                         </div>
                     </div>
 
@@ -71,6 +71,6 @@
         <footer>
             <p>© Copyright 2022 | Openclassrooms</p>
         </footer>
-    <script  type="module" src="/client/scripts/product.js"></script>
+    <script  type="module" src="../scripts/product.js"></script>
   </body>
 </html>

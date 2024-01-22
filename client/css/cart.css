@@ -32,7 +32,7 @@
 	width: 100%;
     object-fit: cover;
     object-position: center;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 .cart__item__content {
 	width: 65%;
@@ -46,9 +46,10 @@
     flex-direction: column;
     gap: 1rem;
 }
+
 .cart__item__content__description p{
     text-align: right;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
 }
 .cart__item__content__titlePrice {
 	display: flex;
@@ -64,7 +65,7 @@
 	color: var(--footer-secondary-color);
 	font-family: 'Montserrat', sans-serif;
 	font-size: 14px;
-	border-radius: 10px;
+	border-radius: 5px;
 	border: 1px solid #767676;
 	text-align: center;
 	text-align-last: center;
@@ -76,17 +77,26 @@
 	display: flex;
 }
 .cart__item__content__settings__quantity p {
-	margin-right: 10px;
+	margin-right: 5px;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
 }
 .cart__item__content__settings__delete button {
 	display: inline;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
     cursor: pointer;
     background-color: transparent;
     border: none;
     outline: none;
-    color: #fff;
+    color: var(--secondary-color);
     font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+}
+.cart__item__content__settings__delete button::after{
+    content: "\f2ed";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
 }
 .cart__item__content__settings__delete button:hover,
 .cart__item__content__settings__delete button:focus {
@@ -102,7 +112,7 @@
 }
 .cart__price p {
 	text-align: end;
-	font-size: 22px;
+	font-size: clamp(1.1rem, 2.4vw, 2rem);
 }
 
 /*******/
@@ -115,9 +125,10 @@
 .cart__order__form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: .5rem;
     width: 50%;
     min-width: 300px;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
 }
 .cart__order__form__question {
     position: relative;
@@ -126,41 +137,34 @@
     gap: .5rem;
 }
 .cart__order__form__question input {
-	border-radius: 10px;
+	border-radius: 5px;
 	border: 0;
-	height: 2rem;
+	height: 3rem;
     padding: 0 10px;
 }
 .cart__order__form__question input:focus {
 	outline: none;
 }
 .cart__order__form__question p {
-    position: absolute;
-    bottom: -1.5rem;
-	color: crimson;
-	font-size: 15px;
-	margin-left: 8px;
+	color: red;
+	font-size: clamp(12px, 1.5vw, 14px);
 }
 .cart__order__form__submit {
 	display: flex;
 	justify-content: center;
 }
 .cart__order__form__submit input {
-	font-size: 22px;
-	border-radius: 10px;
+	font-size: clamp(1.2rem, 1.2vw, 1.4rem);
+	border-radius: 5px;
 	border: 0;
 	background-color: var(--secondary-color);
 	color: white;
-	padding: 18px 28px;
+	padding: 15px 25px;
 	cursor: pointer;
 }
-.cart__order__form__submit input:hover {
-    box-shadow: inset 1px 2px 2px #000000, inset -1px -2px 2px #aba7a7;
-}
-
 /*CLASS JS*/
 .cart__order__form__question input.showInputError{
-	outline:2px solid crimson;
+	outline:1px solid crimson;
 }
 
 /***************/
@@ -196,6 +200,9 @@
     }
     .cart__price p {
         text-align: center;
+    }
+    .cart__order__form__question input {
+        height: 2rem;
     }
     .cart__order {
         justify-content: center;

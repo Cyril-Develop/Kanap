@@ -92,7 +92,11 @@ function showDetails(productApi, productStorage) {
 
         let productPrice = document.createElement("p");
         productItemContentTitlePrice.appendChild(productPrice);
-        productPrice.innerHTML = `${productApi[i].price} €`;
+        productPrice.innerHTML = `Prix : `;
+
+        let productPriceValue = document.createElement("span");
+        productPrice.appendChild(productPriceValue);
+        productPriceValue.innerHTML = `${productApi[i].price} €`;
 
         let productItemContentSettings = document.createElement("div");
         productItemContent.appendChild(productItemContentSettings);
@@ -107,7 +111,7 @@ function showDetails(productApi, productStorage) {
 
         let productQty = document.createElement("p");
         productItemContentSettingsQuantity.appendChild(productQty);
-        productQty.innerHTML = "Qté : ";
+        productQty.innerHTML = "Quantité : ";
 
         let productQuantity = document.createElement("input");
         productItemContentSettingsQuantity.appendChild(productQuantity);
@@ -226,10 +230,6 @@ function deleteProduct(productApi){
 function inputEmpty(errorMsg, input) {
     errorMsg.innerHTML = "Veuillez renseigner ce champ.";
     input.classList.add("showInputError");
-    setTimeout(() => {
-        errorMsg.innerHTML = "";
-        input.classList.remove("showInputError");
-    }, 3000);
 }
 
 //Message sent if the input value is not correct
@@ -244,10 +244,6 @@ errorMessage.push(message);
 function inputNotValid(input, errorMsg, msg) {
     errorMsg.innerHTML = msg;
     input.classList.add("showInputError");
-    setTimeout(() => {
-        errorMsg.innerHTML = "";
-        input.classList.remove("showInputError");
-    }, 8000);
 }
 
 document.querySelector(".cart__order__form").addEventListener("submit", (e) => {
