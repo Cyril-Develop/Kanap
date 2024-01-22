@@ -49,7 +49,6 @@
 
 .cart__item__content__description p{
     text-align: right;
-    font-size: clamp(1rem, 1.2vw, 1.2rem);
 }
 .cart__item__content__titlePrice {
 	display: flex;
@@ -64,7 +63,7 @@
 .cart__item__content__settings input {
 	color: var(--footer-secondary-color);
 	font-family: 'Montserrat', sans-serif;
-	font-size: 14px;
+	font-size: clamp(1.8rem, 1.9vw, 2rem);
 	border-radius: 5px;
 	border: 1px solid #767676;
 	text-align: center;
@@ -78,7 +77,6 @@
 }
 .cart__item__content__settings__quantity p {
 	margin-right: 5px;
-    font-size: clamp(1rem, 1.2vw, 1.2rem);
 }
 .cart__item__content__settings__delete button {
 	display: inline;
@@ -91,7 +89,7 @@
     outline: none;
     color: var(--secondary-color);
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    font-size: clamp(1.8rem, 1.9vw, 2rem);
 }
 .cart__item__content__settings__delete button::after{
     content: "\f2ed";
@@ -112,7 +110,6 @@
 }
 .cart__price p {
 	text-align: end;
-	font-size: clamp(1.1rem, 2.4vw, 2rem);
 }
 
 /*******/
@@ -125,7 +122,7 @@
 .cart__order__form {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 2rem;
     width: 50%;
     min-width: 300px;
     font-size: clamp(1rem, 1.2vw, 1.2rem);
@@ -139,7 +136,7 @@
 .cart__order__form__question input {
 	border-radius: 5px;
 	border: 0;
-	height: 3rem;
+	height: 5rem;
     padding: 0 10px;
 }
 .cart__order__form__question input:focus {
@@ -147,14 +144,14 @@
 }
 .cart__order__form__question p {
 	color: red;
-	font-size: clamp(12px, 1.5vw, 14px);
+	font-size: clamp(1.2rem, 1vw, 1.6rem);
 }
 .cart__order__form__submit {
 	display: flex;
 	justify-content: center;
 }
 .cart__order__form__submit input {
-	font-size: clamp(1.2rem, 1.2vw, 1.4rem);
+	font-size: clamp(1.8rem, 1.9vw, 2rem);
 	border-radius: 5px;
 	border: 0;
 	background-color: var(--secondary-color);
@@ -164,7 +161,7 @@
 }
 /*CLASS JS*/
 .cart__order__form__question input.showInputError{
-	outline:1px solid crimson;
+	outline: 1px solid crimson;
 }
 
 /***************/
@@ -202,12 +199,13 @@
         text-align: center;
     }
     .cart__order__form__question input {
-        height: 2rem;
+        height: 3rem;
     }
     .cart__order {
         justify-content: center;
     }
     .cart__order__form {
         width: 75%;
+        gap: 1rem;
     }
 }
