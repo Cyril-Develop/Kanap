@@ -83,7 +83,7 @@ header {
     width: 0;
     height: 2px;
     background-color: var(--dark-color);
-    transition: width 0.2s ease-in-out;
+    transition: width .2s ease-in-out;
 }
 .menu nav a:hover::after {
     width: 70%;
@@ -139,7 +139,7 @@ main {
     width: 0%;
     height: 2px;
     background-color: var(--dark-color);
-    transition: width 0.2s ease-in-out;
+    transition: width .2s ease-in-out;
 }
 .items a:hover article h3::after{
     width: 50%;

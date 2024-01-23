@@ -45,14 +45,14 @@
 }
 .item__content__description__title {
 	font-weight: 600;
-	font-size: 24px;
+	text-align: left;
 }
 /*CLASS JS*/
 .showError{
 	position: absolute;
 	bottom: -3rem;
 	font-size: clamp(1.2rem, 1.2vw, 1.4rem);
-	color: red;
+	color: #AA0000;
 }
 
 /**************/

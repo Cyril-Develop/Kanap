@@ -7,6 +7,7 @@ const itemDescription = document.querySelector('#description');
 const itemcolors = document.querySelector('#colors');
 const btnAddToCart = document.getElementById('addToCart');
 const blocItemContent = document.querySelector('.item__content__settings__quantity');
+const title = document.querySelector('title');
 
 //retrieval of product information via id
 const productId = new URL(location).searchParams.get('id');
@@ -25,10 +26,14 @@ fetch(`${BASE_URL}/products/${productId}`)
 
 //Display info in the page
 function displayProduct(data){
-    itemImg.appendChild(document.createElement('img')).src = data.imageUrl;
+    const img = document.createElement('img');
+    img.src = data.imageUrl;
+    img.alt = data.name;
+    itemImg.appendChild(img);
     itemTitle.innerHTML = data.name;
     itemPrice.innerHTML = data.price;
     itemDescription.innerHTML = data.description;
+    title.innerHTML = `${data.name}`;
     for(let color of data.colors){
         let newOption = document.createElement('option');
         newOption.innerHTML = `<option value="${color}">${color}</option>`;

@@ -72,6 +72,7 @@ function showDetails(productApi, productStorage) {
         let productImg = document.createElement("img");
         productDivImg.appendChild(productImg);
         productImg.src = `${productApi[i].imageUrl}`;
+        productImg.alt = `${productApi[i].name}`;
 
         let productItemContent = document.createElement("div");
         productArticle.appendChild(productItemContent);
@@ -109,8 +110,9 @@ function showDetails(productApi, productStorage) {
         productItemContentSettingsQuantity.className =
             "cart__item__content__settings__quantity";
 
-        let productQty = document.createElement("p");
+        let productQty = document.createElement("label");
         productItemContentSettingsQuantity.appendChild(productQty);
+        productQty.setAttribute("for", "itemQuantity");
         productQty.innerHTML = "Quantité : ";
 
         let productQuantity = document.createElement("input");
@@ -120,6 +122,7 @@ function showDetails(productApi, productStorage) {
         productQuantity.setAttribute("type", "number");
         productQuantity.setAttribute("min", "1");
         productQuantity.setAttribute("max", "100");
+        productQuantity.setAttribute("id", "itemQuantity");
         productQuantity.setAttribute("name", "itemQuantity");
 
         let productItemContentSettingsDelete = document.createElement("div");
