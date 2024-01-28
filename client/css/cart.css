@@ -3,7 +3,6 @@
 /************/
 .cart_empty{
     display: none;
-    min-height: 40vh;
 }
 .cart{
     display: flex;

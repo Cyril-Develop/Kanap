@@ -29,10 +29,13 @@ ul{
 /*GENERAL*/
 /*********/
 body {
+    display: flex;
+    flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	color: var(--secondary-color);
 	min-width: 300px;
     max-width: 1800px;
+    min-height: 100vh;
     margin: 0 auto;
 }
 h1 {
@@ -109,6 +112,7 @@ header {
 main {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: 2rem;
     padding: 2rem 0;
 	background-color: var(--main-color);
