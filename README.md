@@ -4,7 +4,7 @@
 
 
 
-## 📎 Projet 5 : Kanap
+## 📎 Projet 5 : Kanap - Construisez un site e-commerce en JavaScript
 
 
 
